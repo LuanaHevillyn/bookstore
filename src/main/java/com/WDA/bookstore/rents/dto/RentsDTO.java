@@ -6,8 +6,10 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.persistence.Column;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import java.time.LocalDate;
 
 
 @Getter
@@ -16,23 +18,18 @@ import javax.validation.constraints.NotNull;
 @NoArgsConstructor
 public class RentsDTO {
 
-
     private Long id;
 
     @NotNull
     @NotEmpty
-    private String name;
+    private LocalDate rent_date;
 
     @NotNull
     @NotEmpty
-    private String city;
+    private LocalDate forecast_date;
 
     @NotNull
     @NotEmpty
-    private String email;
-
-    @NotNull
-    @NotEmpty
-    private String address;
-
+    private LocalDate return_date;
+    
 }
