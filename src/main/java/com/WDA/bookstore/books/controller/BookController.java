@@ -1,14 +1,17 @@
-package com.WDA.bookstore.controller;
+package com.WDA.bookstore.books.controller;
+
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/v1/publisher")
-public class PublisherController {
+@RequestMapping("/api/v1/books")
+public class BookController {
+
     @GetMapping
     public String hello(){
         return "Hello";
     }
+
 }
