@@ -10,6 +10,6 @@ public class PublisherController {
 
     @GetMapping
     public String hello(){
-        return "Hello";
+        return "GET Publishers";
     }
 }

@@ -10,6 +10,6 @@ public class RentController {
 
     @GetMapping
     public String hello(){
-        return "Hello";
+        return "GET Rents";
     }
 }
