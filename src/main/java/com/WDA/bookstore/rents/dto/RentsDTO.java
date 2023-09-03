@@ -24,6 +24,17 @@ public class RentsDTO {
     @NotEmpty
     private LocalDate rent_date;
 
+
+    @NotNull
+    @NotEmpty
+    private LocalDate forecast_date;
+
+    @NotNull
+    @NotEmpty
+    private LocalDate return_date;
+
+
+
     @NotNull
     @NotEmpty
     private LocalDate forecast_date;
