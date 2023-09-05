@@ -1,19 +1,25 @@
-package com.WDA.bookstore.users.service;
+package com.WDA.bookstore.user.service;
 
-import com.WDA.bookstore.users.mapper.UsersMapper;
-import com.WDA.bookstore.users.repository.UsersRepository;
+import com.WDA.bookstore.user.entity.User;
+import com.WDA.bookstore.user.repository.UsersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import javax.transaction.Transactional;
 
 @Service
 public class UsersService {
 
-    private final static UsersMapper usersMapper = UsersMapper.INSTANCE;
+        @Autowired
+        private UsersRepository usersRepository;
 
-    private UsersRepository usersRepository;
+        public UsersService(UsersRepository usersRepository){
+            this.usersRepository = usersRepository;
+        }
 
-    @Autowired
-    public UsersService(UsersRepository usersRepository) {
-        this.usersRepository = usersRepository;
-    }
+        @Transactional
+        public User save(User user){
+            return usersRepository.save( user );
+        }
+
 }

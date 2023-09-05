@@ -1,6 +1,6 @@
-package com.WDA.bookstore.publishers.entity;
+package com.WDA.bookstore.models;
 
-import com.WDA.bookstore.books.entity.Books;
+import com.WDA.bookstore.models.Rents;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -8,7 +8,7 @@ import java.util.List;
 
 @Data
 @Entity
-public class Publishers {
+public class Users {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,7 +20,13 @@ public class Publishers {
     @Column(nullable = false)
     private String city;
 
-    @OneToMany(mappedBy = "publishers")
-    private List<Books> books;
+    @Column(nullable = false)
+    private String email;
+
+    @Column(nullable = false)
+    private String address;
+
+    @OneToMany(mappedBy = "users")
+    private List<Rents> rents;
 
 }

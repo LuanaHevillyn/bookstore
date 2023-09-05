@@ -1,7 +1,5 @@
-package com.WDA.bookstore.rents.entity;
+package com.WDA.bookstore.models;
 
-import com.WDA.bookstore.books.entity.Books;
-import com.WDA.bookstore.users.entity.Users;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -16,10 +14,10 @@ public class Rents {
     private Long id;
 
     @ManyToOne(cascade = {CascadeType.MERGE})
-    private Users users;
+    private User user;
 
     @ManyToOne(cascade = {CascadeType.MERGE})
-    private Books books;
+    private Book book;
 
     @Column(nullable = false, columnDefinition = "DATE")
     private LocalDate rent_date;

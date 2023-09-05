@@ -1,4 +1,4 @@
-package com.WDA.bookstore.users.controller;
+package com.WDA.bookstore.user.controller;
 
 import io.swagger.annotations.Api;
 

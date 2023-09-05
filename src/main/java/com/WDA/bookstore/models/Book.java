@@ -1,7 +1,5 @@
-package com.WDA.bookstore.books.entity;
+package com.WDA.bookstore.models;
 
-import com.WDA.bookstore.publishers.entity.Publishers;
-import com.WDA.bookstore.rents.entity.Rents;
 import lombok.Data;
 
 import javax.persistence.*;
