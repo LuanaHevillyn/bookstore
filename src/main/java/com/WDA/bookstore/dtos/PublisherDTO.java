@@ -1,4 +1,5 @@
-package com.WDA.bookstore.user.dto;
+package com.WDA.bookstore.dtos;
+
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -8,13 +9,12 @@ import lombok.Setter;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
+
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class UsersDTO {
-
-    private Long id;
+public class PublisherDTO {
 
     @NotNull
     @NotEmpty
@@ -24,12 +24,19 @@ public class UsersDTO {
     @NotEmpty
     private String city;
 
-    @NotNull
-    @NotEmpty
-    private String email;
+    public String getName() {
+        return name;
+    }
 
-    @NotNull
-    @NotEmpty
-    private String address;
+    public void setName(String name) {
+        this.name = name;
+    }
 
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
 }

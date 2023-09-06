@@ -1,17 +1,19 @@
 package com.WDA.bookstore.models;
 
-import com.WDA.bookstore.models.Rents;
-import lombok.Data;
-
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.List;
+import java.util.UUID;
 
-@Data
 @Entity
-public class Users {
+@Table(name = "users")
+public class User implements Serializable{
+
+    private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long id;
 
     @Column(nullable = false)
@@ -26,7 +28,46 @@ public class Users {
     @Column(nullable = false)
     private String address;
 
-    @OneToMany(mappedBy = "users")
-    private List<Rents> rents;
+    @OneToMany(mappedBy = "user")
+    private List<Rent> rents;
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
 }
