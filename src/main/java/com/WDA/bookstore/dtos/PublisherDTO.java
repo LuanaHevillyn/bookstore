@@ -1,6 +1,8 @@
 package com.WDA.bookstore.dtos;
 
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,12 +18,14 @@ import javax.validation.constraints.NotNull;
 @NoArgsConstructor
 public class PublisherDTO {
 
-    @NotNull
-    @NotEmpty
+    @ApiModelProperty(example = "Nome", required = true)
+    @JsonProperty("Nome")
+    @NotEmpty(message = "Nome não pode estar vazio!")
     private String name;
 
-    @NotNull
-    @NotEmpty
+    @ApiModelProperty(example = "Cidade", required = true)
+    @JsonProperty("Cidade")
+    @NotEmpty(message = "Cidade não pode estar vazia!")
     private String city;
 
     public String getName() {

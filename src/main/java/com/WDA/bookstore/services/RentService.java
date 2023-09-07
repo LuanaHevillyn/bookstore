@@ -13,6 +13,7 @@ import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
+@Transactional
 public class RentService {
 
     final RentRepository rentRepository;
@@ -25,8 +26,8 @@ public class RentService {
         this.rentRepository = rentRepository;
     }
 
-    @Transactional
-    public Rent save(Rent rent){
+    public Rent create(Rent rent){
+        rent.setStatus ( "Pendente" );
         return rentRepository.save( rent );
     }
 
@@ -38,17 +39,9 @@ public class RentService {
         rentRepository.deleteById(id);
     }
 
-    public Rent update(Long id, Rent newRent) throws Exception {
-        Rent rent = rentRepository.getReferenceById ( id );
-        if (rent == null) {
-            throw new Exception();
-        }
-        if (rent.getId() != id) {
-            throw new IllegalArgumentException();
-        }
+    public Rent update(Long id, Rent rentEdited) {
 
-        newRent.setId(id);
-        Rent rentDB = rentRepository.save(newRent);
-        return rentDB;
+        rentEdited.setId(id);
+        return rentRepository.save(rentEdited);
     }
 }

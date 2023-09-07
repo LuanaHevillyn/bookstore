@@ -2,7 +2,6 @@ package com.WDA.bookstore.models;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.time.LocalDate;
 
 @Entity
 @Table(name = "rents")
@@ -19,14 +18,16 @@ public class Rent implements Serializable {
     @ManyToOne(cascade = {CascadeType.MERGE})
     private Book book;
 
-    @Column(nullable = false, columnDefinition = "DATE")
-    private LocalDate rent_date;
+    @Column(nullable = false)
+    private String rent_date;
 
-    @Column(nullable = false, columnDefinition = "DATE")
-    private LocalDate forecast_date;
+    @Column(nullable = false)
+    private String forecast_date;
 
-    @Column(nullable = false, columnDefinition = "DATE")
-    private LocalDate return_date;
+    private String return_date;
+
+    @Column(nullable = false)
+    private String status;
 
     public Long getId() {
         return id;
@@ -52,27 +53,35 @@ public class Rent implements Serializable {
         this.book = book;
     }
 
-    public LocalDate getRent_date() {
+    public String getRent_date() {
         return rent_date;
     }
 
-    public void setRent_date(LocalDate rent_date) {
+    public void setRent_date(String rent_date) {
         this.rent_date = rent_date;
     }
 
-    public LocalDate getForecast_date() {
+    public String getForecast_date() {
         return forecast_date;
     }
 
-    public void setForecast_date(LocalDate forecast_date) {
+    public void setForecast_date(String forecast_date) {
         this.forecast_date = forecast_date;
     }
 
-    public LocalDate getReturn_date() {
+    public String getReturn_date() {
         return return_date;
     }
 
-    public void setReturn_date(LocalDate return_date) {
+    public void setReturn_date(String return_date) {
         this.return_date = return_date;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }

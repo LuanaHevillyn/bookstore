@@ -2,15 +2,10 @@ package com.WDA.bookstore.controllers;
 
 
 import com.WDA.bookstore.controllers.docs.BookDocs;
-import com.WDA.bookstore.controllers.docs.UserDocs;
 import com.WDA.bookstore.dtos.BookDTO;
-import com.WDA.bookstore.dtos.UserDTO;
 import com.WDA.bookstore.models.Book;
-import com.WDA.bookstore.models.User;
-import com.WDA.bookstore.repositories.BookRepository;
 import com.WDA.bookstore.services.BookService;
-import com.WDA.bookstore.services.UserService;
-import com.WDA.bookstore.utils.AppControllerBase;
+import com.WDA.bookstore.utils.MapperBase;
 import io.swagger.annotations.ApiOperation;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +13,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import javax.transaction.Transactional;
 import javax.validation.Valid;
 import javax.validation.constraints.Min;
 import java.lang.reflect.Type;
@@ -33,7 +27,7 @@ public class BookController {
     private BookService bookService;
 
     @Autowired
-    AppControllerBase appControllerBase;
+    MapperBase mapperBase;
 
     @Autowired
     BookDocs bookDocs;
@@ -58,7 +52,7 @@ public class BookController {
     public ResponseEntity<?> indexBooks() {
         Type type = new TypeToken<List<BookDTO>>() {}.getType();
 
-        List<BookDTO> result = appControllerBase.toList(bookService.index(), type);
+        List<BookDTO> result = mapperBase.toList(bookService.index(), type);
         return ResponseEntity.ok(result);
 
     }
@@ -66,7 +60,7 @@ public class BookController {
     @ApiOperation(value = "Listar apenas um livro")
     @GetMapping({ "/list_id/{id}/"})
     public BookDTO showBook(@PathVariable("id") Long id) {
-        return appControllerBase.mapTo(bookService.show(id), BookDTO.class);
+        return mapperBase.mapTo(bookService.show(id), BookDTO.class);
     }
 
     @PutMapping({ "/put/{id}/" })

@@ -3,6 +3,8 @@ package com.WDA.bookstore.dtos;
 
 import com.WDA.bookstore.models.Book;
 import com.WDA.bookstore.models.User;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,50 +20,50 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @NoArgsConstructor
 public class RentDTO {
-
-
-    @NotNull
-    @NotEmpty
+    
+    @ApiModelProperty(example = "Usuário", required = true)
+    @JsonProperty("Usuário")
     private User user;
 
-    @NotNull
-    @NotEmpty
+    @ApiModelProperty(example = "Livro", required = true)
+    @JsonProperty("Livro")
     private Book book;
 
-    @NotNull
-    @NotEmpty
-    private LocalDate rent_date;
+    @ApiModelProperty(example = "Data de aluguel", required = true)
+    @JsonProperty("Data de aluguel")
+    @NotEmpty(message = "A data de aluguel não pode estar vazia!")
+    private String rent_date;
 
-    @NotNull
-    @NotEmpty
-    private LocalDate forecast_date;
+    @ApiModelProperty(example = "Data de previsão", required = true)
+    @JsonProperty("Data de previsão")
+    private String forecast_date;
 
-    @NotNull
-    @NotEmpty
-    private LocalDate return_date;
+    @ApiModelProperty(example = "Data de devolução")
+    @JsonProperty("Data de devolução")
+    private String return_date;
 
 
-    public LocalDate getRent_date() {
+    public String getRent_date() {
         return rent_date;
     }
 
-    public void setRent_date(LocalDate rent_date) {
+    public void setRent_date(String rent_date) {
         this.rent_date = rent_date;
     }
 
-    public LocalDate getForecast_date() {
+    public String getForecast_date() {
         return forecast_date;
     }
 
-    public void setForecast_date(LocalDate forecast_date) {
+    public void setForecast_date(String forecast_date) {
         this.forecast_date = forecast_date;
     }
 
-    public LocalDate getReturn_date() {
+    public String getReturn_date() {
         return return_date;
     }
 
-    public void setReturn_date(LocalDate return_date) {
+    public void setReturn_date(String return_date) {
         this.return_date = return_date;
     }
 }

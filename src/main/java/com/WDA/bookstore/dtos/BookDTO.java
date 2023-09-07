@@ -2,11 +2,14 @@ package com.WDA.bookstore.dtos;
 
 
 import com.WDA.bookstore.models.Publisher;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
@@ -19,29 +22,29 @@ import java.time.LocalDate;
 public class BookDTO {
 
 
-    @NotNull
-    @NotEmpty
+    @ApiModelProperty(example = "Nome", required = true)
+    @JsonProperty("Nome")
+    @NotEmpty(message = "Nome não pode estar vazio!")
     private String name;
 
-    @NotNull
-    @NotEmpty
+    @ApiModelProperty(example = "Autor", required = true)
+    @JsonProperty("Autor")
+    @NotEmpty(message = "Autor não pode estar vazio!")
     private String author;
 
-    @NotNull
-    @NotEmpty
+    @ApiModelProperty(example = "Editora", required = true)
+    @JsonProperty("Editora")
     private Publisher publisher;
 
-    @NotNull
-    @NotEmpty
-    private LocalDate launch;
+    @ApiModelProperty(example = "YYYY", required = true)
+    @JsonProperty("Lançamento")
+    @Min ( value = 4, message = "Coloque apenas o ano!")
+    private Integer launch;
 
-    @NotNull
-    @NotEmpty
+    @ApiModelProperty(example = "Quantidade", required = true)
+    @JsonProperty("Quantidade")
+    @Min ( value = 1, message = "Não é permitido menos que 1 na quantidade de livros!")
     private Integer amount;
-
-    @NotNull
-    @NotEmpty
-    private Integer total_leased;
 
     public String getName() {
         return name;
@@ -59,11 +62,11 @@ public class BookDTO {
         this.author = author;
     }
 
-    public LocalDate getLaunch() {
+    public Integer getLaunch() {
         return launch;
     }
 
-    public void setLaunch(LocalDate launch) {
+    public void setLaunch(Integer launch) {
         this.launch = launch;
     }
 
@@ -75,11 +78,11 @@ public class BookDTO {
         this.amount = amount;
     }
 
-    public Integer getTotal_leased() {
-        return total_leased;
+    public Publisher getPublisher() {
+        return publisher;
     }
 
-    public void setTotal_leased(Integer total_leased) {
-        this.total_leased = total_leased;
+    public void setPublisher(Publisher publisher) {
+        this.publisher = publisher;
     }
 }

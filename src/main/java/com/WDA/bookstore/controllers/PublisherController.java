@@ -4,7 +4,7 @@ import com.WDA.bookstore.controllers.docs.PublisherDocs;
 import com.WDA.bookstore.dtos.PublisherDTO;
 import com.WDA.bookstore.models.Publisher;
 import com.WDA.bookstore.services.PublisherService;
-import com.WDA.bookstore.utils.AppControllerBase;
+import com.WDA.bookstore.utils.MapperBase;
 import io.swagger.annotations.ApiOperation;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +27,7 @@ public class PublisherController {
     private PublisherService publisherService;
 
     @Autowired
-    AppControllerBase appControllerBase;
+    MapperBase appControllerBase;
 
     @Autowired
     PublisherDocs publisherDocs;
