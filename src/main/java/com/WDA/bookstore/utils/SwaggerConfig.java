@@ -33,7 +33,6 @@ public class SwaggerConfig {
                 .title("Bookstore WDA")
                 .description("Bookstore made in Java")
                 .version("1.0")
-                .contact(new Contact("Luana Hevillyn", "https://github.com/LuanaHevillyn/projeto-vue", "luanahevillynn@gmail.com"))
                 .build();
     }
 }

@@ -4,7 +4,7 @@ import com.WDA.bookstore.dtos.UserDTO;
 import com.WDA.bookstore.models.User;
 import com.WDA.bookstore.controllers.docs.UserDocs;
 import com.WDA.bookstore.services.UserService;
-import com.WDA.bookstore.utils.AppControllerBase;
+import com.WDA.bookstore.utils.MapperBase;
 import io.swagger.annotations.ApiOperation;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,33 +16,45 @@ import javax.validation.Valid;
 import javax.validation.constraints.Min;
 import java.lang.reflect.Type;
 import java.net.URI;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/v1/users")
 public class UserController {
 
+
+    private UserDTO userDTO;
+
     @Autowired
     private UserService userService;
 
     @Autowired
-    AppControllerBase appControllerBase;
+    MapperBase mapperBase;
 
     @Autowired
     UserDocs userDocs;
 
     @PostMapping({ "/create"})
     @ApiOperation (value = "Criar usuário")
-    public ResponseEntity<Object> createUser(@Valid @RequestBody UserDTO user) {
+    public ResponseEntity<Object> createUser(@RequestBody @Valid  UserDTO user) {
+
         User userModel = userDocs.mapTo(user);
-        User savedUser = userService.save (userModel);
+        User savedUser = userService.create (userModel);
 
         URI location = ServletUriComponentsBuilder
                 .fromCurrentRequest()
                 .path("/{id}")
                 .buildAndExpand(savedUser.getId())
                 .toUri();
-        return ResponseEntity.created(location).build();
+
+
+        Map<String, Object> responseMessage = new HashMap<> ();
+
+        responseMessage.put("message",  "Usuário criado com sucesso.");
+
+        return ResponseEntity.created(location).body(responseMessage);
     }
 
     @ApiOperation(value = "Listar usuários")
@@ -51,7 +63,7 @@ public class UserController {
     public ResponseEntity<?> indexUsers() {
         Type type = new TypeToken<List<UserDTO>>() {}.getType();
 
-        List<UserDTO> result = appControllerBase.toList(userService.index(), type);
+        List<UserDTO> result = mapperBase.toList(userService.index(), type);
         return ResponseEntity.ok(result);
 
     }
@@ -59,8 +71,9 @@ public class UserController {
     @ApiOperation(value = "Listar apenas um usuário")
     @GetMapping({ "/list_id/{id}/"})
     public UserDTO showUser(@PathVariable("id") Long id) {
-        return appControllerBase.mapTo(userService.show(id), UserDTO.class);
+        return mapperBase.mapTo(userService.show(id), UserDTO.class);
     }
+
 
     @PutMapping({ "/put/{id}/" })
     @ApiOperation(value = "Editar usuário")

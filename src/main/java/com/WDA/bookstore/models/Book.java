@@ -23,8 +23,8 @@ public class Book implements Serializable {
     @Column(nullable = false)
     private String author;
 
-    @Column(nullable = false, length = 4, columnDefinition = "DATE")
-    private LocalDate launch;
+    @Column(nullable = false, length = 4)
+    private Integer launch;
 
     @Column(nullable = false)
     private int amount;
@@ -67,11 +67,11 @@ public class Book implements Serializable {
         this.author = author;
     }
 
-    public LocalDate getLaunch() {
+    public Integer getLaunch() {
         return launch;
     }
 
-    public void setLaunch(LocalDate launch) {
+    public void setLaunch(Integer launch) {
         this.launch = launch;
     }
 

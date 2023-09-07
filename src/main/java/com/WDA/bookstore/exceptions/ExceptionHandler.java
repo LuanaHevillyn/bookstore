@@ -1,35 +1,21 @@
-package com.WDA.bookstore.exception;
+package com.WDA.bookstore.exceptions;
 
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
-import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import javax.persistence.EntityExistsException;
-import javax.persistence.EntityNotFoundException;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 @ControllerAdvice
 public class ExceptionHandler extends ResponseEntityExceptionHandler {
-
-    @org.springframework.web.bind.annotation.ExceptionHandler(EntityNotFoundException.class)
-    public ResponseEntity<Object> handleEntityNotFoundException(EntityNotFoundException exception){
-        return buildResponseEntity(
-                HttpStatus.NOT_FOUND,
-                exception.getMessage(),
-                Collections.singletonList( exception.getMessage() )
-        );
-    }
-
-    //mm
 
     @org.springframework.web.bind.annotation.ExceptionHandler(EntityExistsException.class)
     public ResponseEntity<Object> handleEntityExistsException(EntityExistsException exception){
@@ -45,16 +31,15 @@ public class ExceptionHandler extends ResponseEntityExceptionHandler {
         List<String> errors = new ArrayList<>();
 
         exception.getBindingResult().getFieldErrors()
-                .forEach(fieldError -> errors.add( "Field " + fieldError.getField().toUpperCase() + " " + fieldError.getDefaultMessage() ) );
+                .forEach(fieldError -> errors.add( fieldError.getDefaultMessage() ) );
 
-        exception.getBindingResult().getGlobalErrors()
-                .forEach(globalErrors -> errors.add( "Object " + globalErrors.getObjectName() + " " + globalErrors.getDefaultMessage() ) );
-
-        return buildResponseEntity( HttpStatus.BAD_REQUEST, "Informed argument(s) validation error(s)", errors );
+        return buildResponseEntity( HttpStatus.BAD_REQUEST, "Verifique se colocou todos os dados corretamente", errors );
     }
 
     @Override
     protected ResponseEntity<Object> handleHttpMessageNotReadable(HttpMessageNotReadableException exception, HttpHeaders headers, HttpStatus status, WebRequest request) {
+        List<String> errors = new ArrayList<>();
+
         return buildResponseEntity( HttpStatus.BAD_REQUEST, "Malformed JSON body and/or field error", Collections.singletonList( exception.getLocalizedMessage() ) );
     }
 
@@ -64,7 +49,6 @@ public class ExceptionHandler extends ResponseEntityExceptionHandler {
                 .status( httpStatus.getReasonPhrase() )
                 .message( message )
                 .errors( errors )
-                .timestamp( LocalDateTime.now() )
                 .build();
         return ResponseEntity.status( httpStatus ).body( apiError );
     }

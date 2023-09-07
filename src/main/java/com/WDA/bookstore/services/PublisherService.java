@@ -8,6 +8,7 @@ import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
+@Transactional
 public class PublisherService {
 
     final PublisherRepository publisherRepository;
@@ -20,7 +21,6 @@ public class PublisherService {
         this.publisherRepository = publisherRepository;
     }
 
-    @Transactional
     public Publisher save(Publisher publisher){
         return publisherRepository.save( publisher );
     }

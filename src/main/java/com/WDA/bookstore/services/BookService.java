@@ -10,6 +10,7 @@ import java.util.List;
 
 
 @Service
+@Transactional
 public class BookService {
 
     final BookRepository bookRepository;
@@ -22,7 +23,6 @@ public class BookService {
         this.bookRepository = bookRepository;
     }
 
-    @Transactional
     public Book save(Book book){
         return bookRepository.save( book );
     }
