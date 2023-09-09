@@ -24,6 +24,7 @@ public class Rent implements Serializable {
     @Column(nullable = false)
     private String forecast_date;
 
+    @Column
     private String return_date;
 
     @Column(nullable = false)

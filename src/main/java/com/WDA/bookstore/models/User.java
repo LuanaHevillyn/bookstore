@@ -3,11 +3,10 @@ package com.WDA.bookstore.models;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
-import java.util.UUID;
 
 @Entity
 @Table(name = "users")
-public class User implements Serializable{
+public class User implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -26,6 +25,9 @@ public class User implements Serializable{
 
     @Column(nullable = false)
     private String address;
+
+    @Column
+    private Integer total_rents;
 
     @OneToMany(mappedBy = "user")
     private List<Rent> rents;
@@ -68,5 +70,13 @@ public class User implements Serializable{
 
     public void setCity(String city) {
         this.city = city;
+    }
+
+    public Integer getTotal_rents() {
+        return total_rents;
+    }
+
+    public void setTotal_rents(Integer total_rents) {
+        this.total_rents = total_rents;
     }
 }

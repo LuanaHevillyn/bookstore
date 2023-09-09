@@ -18,10 +18,10 @@ public class MapperBase {
     }
 
     public <S, D> D mapTo(S source, Class<D> destClass) {
-        return this.modelMapper.map(source, destClass);
+        return modelMapper.map(source, destClass);
     }
 
     public <S, D> List<D> toList(List<S> source, Type destClass) {
-        return this.modelMapper.map(source, destClass);
+        return modelMapper.map(source, destClass);
     }
 }
