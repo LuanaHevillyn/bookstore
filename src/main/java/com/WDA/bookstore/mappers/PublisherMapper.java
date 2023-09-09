@@ -1,4 +1,4 @@
-package com.WDA.bookstore.controllers.docs;
+package com.WDA.bookstore.mappers;
 
 import com.WDA.bookstore.dtos.PublisherDTO;
 import com.WDA.bookstore.models.Publisher;
@@ -6,11 +6,11 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 
 @Component("publisherDocs")
-public class PublisherDocs {
+public class PublisherMapper {
 
     private ModelMapper modelMapper;
 
-    public PublisherDocs() {
+    public PublisherMapper() {
         modelMapper = new ModelMapper();
     }
 

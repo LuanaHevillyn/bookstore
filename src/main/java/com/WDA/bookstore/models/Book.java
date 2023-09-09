@@ -2,7 +2,6 @@ package com.WDA.bookstore.models;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.time.LocalDate;
 import java.util.List;
 
 @Entity
@@ -29,7 +28,7 @@ public class Book implements Serializable {
     @Column(nullable = false)
     private int amount;
 
-    @Column(nullable = false)
+    @Column
     private int total_leased;
 
     @OneToMany(mappedBy = "book")

@@ -38,7 +38,6 @@ public class ExceptionHandler extends ResponseEntityExceptionHandler {
 
     @Override
     protected ResponseEntity<Object> handleHttpMessageNotReadable(HttpMessageNotReadableException exception, HttpHeaders headers, HttpStatus status, WebRequest request) {
-        List<String> errors = new ArrayList<>();
 
         return buildResponseEntity( HttpStatus.BAD_REQUEST, "Malformed JSON body and/or field error", Collections.singletonList( exception.getLocalizedMessage() ) );
     }

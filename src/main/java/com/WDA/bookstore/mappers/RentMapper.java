@@ -1,4 +1,4 @@
-package com.WDA.bookstore.controllers.docs;
+package com.WDA.bookstore.mappers;
 
 import com.WDA.bookstore.dtos.RentDTO;
 import com.WDA.bookstore.models.Rent;
@@ -6,11 +6,11 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 
 @Component("rentDocs")
-public class RentDocs {
+public class RentMapper {
 
     private ModelMapper modelMapper;
 
-    public RentDocs() {
+    public RentMapper() {
         modelMapper = new ModelMapper();
     }
 

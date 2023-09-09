@@ -1,51 +1,56 @@
 package com.WDA.bookstore.services;
 
+import com.WDA.bookstore.dtos.PublisherDTO;
+import com.WDA.bookstore.exceptions.publisherException.PublisherNameAlredyExistsException;
 import com.WDA.bookstore.models.Publisher;
 import com.WDA.bookstore.repositories.PublisherRepository;
+import com.WDA.bookstore.utils.MapperBase;
+import org.modelmapper.TypeToken;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional
 public class PublisherService {
 
-    final PublisherRepository publisherRepository;
+    @Autowired
+    private PublisherRepository publisherRepository;
 
-    public List<Publisher> index() {
-        return publisherRepository.findAll();
+    @Autowired
+    private MapperBase mapperBase;
+
+    public List<PublisherDTO> findAll() {
+        return mapperBase.toList(publisherRepository.findAll(), new TypeToken<List<PublisherDTO>>() {
+        }.getType());
     }
 
-    public PublisherService(PublisherRepository publisherRepository) {
-        this.publisherRepository = publisherRepository;
-    }
+    public Publisher create(Publisher publisher) {
+        Optional<Publisher> publisherName = publisherRepository.findByName(publisher.getName());
 
-    public Publisher save(Publisher publisher){
-        return publisherRepository.save( publisher );
-    }
-
-    public Publisher show(Long id) {
-        return publisherRepository.getReferenceById ( id );
+        if(publisherName.isPresent()) {
+            throw new PublisherNameAlredyExistsException(publisher.getName());
+        } else {
+            return publisherRepository.save(publisher);
+        }
     }
 
     public void delete(Long id) {
         publisherRepository.deleteById(id);
     }
 
-    public Publisher update(Long id, Publisher newPublisher) throws Exception {
-        Publisher publisher = publisherRepository.getReferenceById ( id );
-        if (publisher == null) {
-            throw new Exception();
-        }
-        if (publisher.getId() != id) {
-            throw new IllegalArgumentException();
-        }
+    public Publisher update(Long id, Publisher publisher) {
+        publisher.setId(id);
+        Optional<Publisher> publisherName = publisherRepository.findByName(publisher.getName());
 
-        newPublisher.setId(id);
-        Publisher publisherDB = publisherRepository.save(newPublisher);
-        return publisherDB;
+        if(publisherName.isPresent()) {
+            throw new PublisherNameAlredyExistsException(publisher.getName());
+        }
+        return publisherRepository.save(publisher);
+
     }
-
 
 }

@@ -1,11 +1,14 @@
 package com.WDA.bookstore.services;
 
+import com.WDA.bookstore.dtos.RentDTO;
 import com.WDA.bookstore.models.Book;
-import com.WDA.bookstore.models.Publisher;
 import com.WDA.bookstore.models.Rent;
+import com.WDA.bookstore.models.User;
 import com.WDA.bookstore.repositories.BookRepository;
-import com.WDA.bookstore.repositories.PublisherRepository;
 import com.WDA.bookstore.repositories.RentRepository;
+import com.WDA.bookstore.repositories.UserRepository;
+import com.WDA.bookstore.utils.MapperBase;
+import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,23 +19,41 @@ import java.util.List;
 @Transactional
 public class RentService {
 
-    final RentRepository rentRepository;
+    @Autowired
+    private BookRepository bookRepository;
 
-    public List<Rent> index() {
-        return rentRepository.findAll();
+    @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
+    private RentRepository rentRepository;
+
+    @Autowired
+    private MapperBase mapperBase;
+
+    public List<RentDTO> findAll() {
+        return mapperBase.toList(rentRepository.findAll(), new TypeToken<List<RentDTO>>() {
+        }.getType());
     }
 
-    public RentService(RentRepository rentRepository) {
-        this.rentRepository = rentRepository;
-    }
+    public Rent create(Rent rent) {
+        rent.setStatus("Pendente");
+        Book book = rent.getBook();
+        User user = rent.getUser();
 
-    public Rent create(Rent rent){
-        rent.setStatus ( "Pendente" );
-        return rentRepository.save( rent );
-    }
+        if(book != null && user != null) {
+            Integer total_leased = book.getTotal_leased() + 1;
+            book.setTotal_leased(total_leased);
+            bookRepository.save(book);
+            
+            Integer total_rents = user.getTotal_rents() + 1;
+            user.setTotal_rents(total_rents);
+            userRepository.save(user);
 
-    public Rent show(Long id) {
-        return rentRepository.getReferenceById ( id );
+            rentRepository.save(rent);
+        }
+
+        return rent;
     }
 
     public void delete(Long id) {
@@ -40,7 +61,6 @@ public class RentService {
     }
 
     public Rent update(Long id, Rent rentEdited) {
-
         rentEdited.setId(id);
         return rentRepository.save(rentEdited);
     }

@@ -47,5 +47,4 @@ public class Publisher implements Serializable {
         this.city = city;
     }
 
-
 }
