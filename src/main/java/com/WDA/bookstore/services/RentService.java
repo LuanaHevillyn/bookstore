@@ -42,13 +42,9 @@ public class RentService {
         User user = rent.getUser();
 
         if(book != null && user != null) {
-            Integer total_leased = book.getTotal_leased() + 1;
-            book.setTotal_leased(total_leased);
-            bookRepository.save(book);
-            
-            Integer total_rents = user.getTotal_rents() + 1;
-            user.setTotal_rents(total_rents);
-            userRepository.save(user);
+            bookRepository.addToTotalLeased(book.getId());
+
+            userRepository.addToTotalRents(user.getId());
 
             rentRepository.save(rent);
         }

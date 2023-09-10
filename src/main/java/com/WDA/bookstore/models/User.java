@@ -27,7 +27,7 @@ public class User implements Serializable {
     private String address;
 
     @Column
-    private Integer total_rents;
+    private int total_rents;
 
     @OneToMany(mappedBy = "user")
     private List<Rent> rents;
