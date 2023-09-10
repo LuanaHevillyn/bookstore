@@ -43,9 +43,7 @@ public class RentService {
 
         if(book != null && user != null) {
             bookRepository.addToTotalLeased(book.getId());
-
             userRepository.addToTotalRents(user.getId());
-
             rentRepository.save(rent);
         }
 

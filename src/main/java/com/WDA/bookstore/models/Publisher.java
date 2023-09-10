@@ -20,6 +20,9 @@ public class Publisher implements Serializable {
     @Column(nullable = false)
     private String city;
 
+    @Column
+    private int related_books;
+
     @OneToMany(mappedBy = "publisher")
     private List<Book> books;
 

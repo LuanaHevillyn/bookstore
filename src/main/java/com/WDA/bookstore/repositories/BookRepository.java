@@ -13,7 +13,7 @@ public interface BookRepository extends JpaRepository<Book, Long> {
     boolean existsByPublisherIdAndName(Long editoraId, String nomeLivro);
 
     @Modifying
-    @Query("UPDATE Book b SET b.total_leased = b.total_leased + 1 WHERE b.id = :bookId")
+    @Query("UPDATE Book book SET book.total_leased = book.total_leased + 1, amount = amount - 1  WHERE book.id = :bookId")
     void addToTotalLeased(@Param("bookId") Long bookId);
 
 }

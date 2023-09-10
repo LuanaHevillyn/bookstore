@@ -4,7 +4,9 @@ import com.WDA.bookstore.dtos.BookDTO;
 import com.WDA.bookstore.exceptions.bookException.LaunchYearItsNotValid;
 import com.WDA.bookstore.exceptions.bookException.PublisherAlreadyRelatedException;
 import com.WDA.bookstore.models.Book;
+import com.WDA.bookstore.models.Publisher;
 import com.WDA.bookstore.repositories.BookRepository;
+import com.WDA.bookstore.repositories.PublisherRepository;
 import com.WDA.bookstore.utils.MapperBase;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +21,9 @@ import java.util.List;
 public class BookService {
 
     @Autowired
+    private PublisherRepository publisherRepository;
+
+    @Autowired
     private BookRepository bookRepository;
 
     @Autowired
@@ -30,9 +35,12 @@ public class BookService {
     }
 
     public Book create(Book book) {
-        if(publisherAlreadyRelated(book.getPublisher().getId(), book.getName())) {
+        Publisher publisher = book.getPublisher();
+
+        if(publisherAlreadyRelated(publisher.getId(), book.getName())) {
             throw new PublisherAlreadyRelatedException();
-        } else if(currentYearIsSmallerThanLaunchYear(book.getLaunch())) {
+        } else if(currentYearIsBiggerThanLaunchYear(book.getLaunch())) {
+            publisherRepository.addToRelatedBooks(publisher.getId());
             return bookRepository.save(book);
         } else {
             throw new LaunchYearItsNotValid();
@@ -43,7 +51,7 @@ public class BookService {
         book.setId(id);
         if(publisherAlreadyRelated(book.getPublisher().getId(), book.getName())) {
             throw new PublisherAlreadyRelatedException();
-        } else if(currentYearIsSmallerThanLaunchYear(book.getLaunch())) {
+        } else if(currentYearIsBiggerThanLaunchYear(book.getLaunch())) {
             return bookRepository.save(book);
         } else {
             throw new LaunchYearItsNotValid();
@@ -54,7 +62,7 @@ public class BookService {
         bookRepository.deleteById(id);
     }
 
-    public boolean currentYearIsSmallerThanLaunchYear(Integer launchYear) {
+    public boolean currentYearIsBiggerThanLaunchYear(Integer launchYear) {
         int currentYear = LocalDate.now().getYear();
         return launchYear <= currentYear;
     }
