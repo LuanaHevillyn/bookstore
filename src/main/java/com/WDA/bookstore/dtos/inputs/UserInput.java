@@ -1,4 +1,4 @@
-package com.WDA.bookstore.dtos;
+package com.WDA.bookstore.dtos.inputs;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

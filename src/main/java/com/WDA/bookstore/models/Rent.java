@@ -2,6 +2,7 @@ package com.WDA.bookstore.models;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "rents")
@@ -19,13 +20,13 @@ public class Rent implements Serializable {
     private Book book;
 
     @Column(nullable = false)
-    private String rent_date;
+    private LocalDate rent_date;
 
     @Column(nullable = false)
-    private String forecast_date;
+    private LocalDate forecast_date;
 
     @Column
-    private String return_date;
+    private LocalDate return_date;
 
     @Column(nullable = false)
     private String status;
@@ -54,27 +55,27 @@ public class Rent implements Serializable {
         this.book = book;
     }
 
-    public String getRent_date() {
+    public LocalDate getRent_date() {
         return rent_date;
     }
 
-    public void setRent_date(String rent_date) {
+    public void setRent_date(LocalDate rent_date) {
         this.rent_date = rent_date;
     }
 
-    public String getForecast_date() {
+    public LocalDate getForecast_date() {
         return forecast_date;
     }
 
-    public void setForecast_date(String forecast_date) {
+    public void setForecast_date(LocalDate forecast_date) {
         this.forecast_date = forecast_date;
     }
 
-    public String getReturn_date() {
+    public LocalDate getReturn_date() {
         return return_date;
     }
 
-    public void setReturn_date(String return_date) {
+    public void setReturn_date(LocalDate return_date) {
         this.return_date = return_date;
     }
 
@@ -85,4 +86,5 @@ public class Rent implements Serializable {
     public void setStatus(String status) {
         this.status = status;
     }
+
 }

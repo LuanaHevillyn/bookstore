@@ -38,13 +38,13 @@ public class BookController implements BookControllerDocs {
     @PutMapping("/{id}")
     @Override
     public ResponseEntity<Void> update(@PathVariable Long id, @RequestBody BookDTO book) {
-        bookService.update(id, bookMapper.mapTo(book));
+        bookService.update(bookMapper.mapTo(book));
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     @DeleteMapping("/{id}")
     @Override
-    public ResponseEntity<Void> delete(@PathVariable("id") Long id) {
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
         bookService.delete(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }

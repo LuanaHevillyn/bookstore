@@ -13,7 +13,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.time.LocalDate;
 import java.util.List;
+
 
 @Service
 @Transactional
@@ -42,11 +44,10 @@ public class RentService {
         User user = rent.getUser();
 
         if(book != null && user != null) {
-            bookRepository.addToTotalLeased(book.getId());
-            userRepository.addToTotalRents(user.getId());
+            bookRepository.save(book);
+            userRepository.save(user);
             rentRepository.save(rent);
         }
-
         return rent;
     }
 
@@ -54,8 +55,16 @@ public class RentService {
         rentRepository.deleteById(id);
     }
 
-    public Rent update(Long id, Rent rentEdited) {
-        rentEdited.setId(id);
-        return rentRepository.save(rentEdited);
+    public Rent update(Long id, Rent rent) {
+        rent.setId(id);
+        LocalDate return_Date = rent.getReturn_date();
+        LocalDate forecast_date = rent.getForecast_date();
+        if(return_Date.isBefore(forecast_date)) {
+            rent.setStatus("Devolvido");
+        } else {
+            rent.setStatus("Atrasado");
+        }
+        return rentRepository.save(rent);
     }
+
 }

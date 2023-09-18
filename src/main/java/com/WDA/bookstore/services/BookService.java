@@ -34,6 +34,11 @@ public class BookService {
         }.getType());
     }
 
+    public List<BookDTO> findMostRented() {
+        return mapperBase.toList(bookRepository.findAll(), new TypeToken<List<BookDTO>>() {
+        }.getType());
+    }
+
     public Book create(Book book) {
         Publisher publisher = book.getPublisher();
 
@@ -47,12 +52,12 @@ public class BookService {
         }
     }
 
-    public Book update(Long id, Book book) {
-        book.setId(id);
+    public void update(Book book) {
+        book.getId();
         if(publisherAlreadyRelated(book.getPublisher().getId(), book.getName())) {
             throw new PublisherAlreadyRelatedException();
         } else if(currentYearIsBiggerThanLaunchYear(book.getLaunch())) {
-            return bookRepository.save(book);
+            bookRepository.save(book);
         } else {
             throw new LaunchYearItsNotValid();
         }
