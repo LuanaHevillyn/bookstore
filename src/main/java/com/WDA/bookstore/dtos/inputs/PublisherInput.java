@@ -13,12 +13,16 @@ import javax.validation.constraints.NotEmpty;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class PublisherDTO {
+public class PublisherInput {
+
+    private Long id;
 
     @NotEmpty(message = "Nome não pode estar vazio!")
     private String name;
 
     @NotEmpty(message = "Cidade não pode estar vazia!")
     private String city;
+
+    private Integer related_books;
 
 }

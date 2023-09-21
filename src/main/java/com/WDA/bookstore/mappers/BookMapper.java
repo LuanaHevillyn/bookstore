@@ -1,6 +1,6 @@
 package com.WDA.bookstore.mappers;
 
-import com.WDA.bookstore.dtos.BookDTO;
+import com.WDA.bookstore.dtos.inputs.BookInput;
 import com.WDA.bookstore.models.Book;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
@@ -14,8 +14,8 @@ public class BookMapper {
         modelMapper = new ModelMapper();
     }
 
-    public Book mapTo(BookDTO bookDTO) {
-        return modelMapper.map(bookDTO, Book.class);
+    public Book mapTo(BookInput bookInput) {
+        return modelMapper.map(bookInput, Book.class);
     }
 
 }

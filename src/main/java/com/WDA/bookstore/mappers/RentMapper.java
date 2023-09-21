@@ -1,6 +1,6 @@
 package com.WDA.bookstore.mappers;
 
-import com.WDA.bookstore.dtos.RentDTO;
+import com.WDA.bookstore.dtos.inputs.RentInput;
 import com.WDA.bookstore.models.Rent;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
@@ -14,7 +14,7 @@ public class RentMapper {
         modelMapper = new ModelMapper();
     }
 
-    public Rent mapTo(RentDTO rentDTO) {
-        return modelMapper.map(rentDTO, Rent.class);
+    public Rent mapTo(RentInput rentInput) {
+        return modelMapper.map(rentInput, Rent.class);
     }
 }

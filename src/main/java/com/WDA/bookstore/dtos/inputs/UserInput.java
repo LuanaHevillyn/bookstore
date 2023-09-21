@@ -12,7 +12,9 @@ import javax.validation.constraints.NotEmpty;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserDTO {
+public class UserInput {
+
+    private Long id;
 
     @NotEmpty(message = "Nome não pode estar vazio!")
     private String name;
@@ -27,4 +29,5 @@ public class UserDTO {
     @NotEmpty(message = "Endereço não pode estar vazio!")
     private String address;
 
+    private int total_rents;
 }

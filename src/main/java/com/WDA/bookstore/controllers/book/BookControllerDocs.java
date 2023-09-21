@@ -1,6 +1,7 @@
 package com.WDA.bookstore.controllers.book;
 
-import com.WDA.bookstore.dtos.BookDTO;
+import com.WDA.bookstore.dtos.inputs.BookInput;
+import com.WDA.bookstore.models.Book;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.ApiResponse;
@@ -8,6 +9,8 @@ import io.swagger.annotations.ApiResponses;
 import org.springframework.beans.factory.parsing.Problem;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Api(tags = "Books")
 @ApiResponses({@ApiResponse(code = 500, message = "There was an internal error", response = Problem.class)})
@@ -20,14 +23,21 @@ public interface BookControllerDocs {
     })
 
     @PostMapping
-    ResponseEntity<Void> create(@ApiParam(name = "body", value = "Representation of a new book", required = true) BookDTO request);
+    ResponseEntity<Void> create(@ApiParam(name = "body", value = "Representation of a new book", required = true) BookInput request);
 
     @GetMapping
     ResponseEntity<?> findAll();
 
-    @PutMapping("/{id}")
-    ResponseEntity<Void> update(@PathVariable Long id, @RequestBody BookDTO book);
+    @GetMapping("mostRented")
+    ResponseEntity<List<Book>> MostRented();
+
+    @GetMapping("listOfMostRented")
+    ResponseEntity<List<Book>> ListOfMostRented();
+
+    @PutMapping
+    ResponseEntity<Void> update(@RequestBody BookInput book);
+
 
     @DeleteMapping("/{id}")
-    ResponseEntity<Void> delete(@PathVariable("id") Long id);
+    ResponseEntity<Void> delete(@PathVariable Long id);
 }

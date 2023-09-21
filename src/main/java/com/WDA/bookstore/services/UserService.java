@@ -1,8 +1,8 @@
 package com.WDA.bookstore.services;
 
-import com.WDA.bookstore.dtos.UserDTO;
-import com.WDA.bookstore.exceptions.userException.UserEmailAlredyExistsException;
-import com.WDA.bookstore.exceptions.userException.UserNameAlredyExistsException;
+import com.WDA.bookstore.dtos.outputs.UserOutput;
+import com.WDA.bookstore.exceptions.CantDeleteException;
+import com.WDA.bookstore.exceptions.EntityAlreadyExistsException;
 import com.WDA.bookstore.models.User;
 import com.WDA.bookstore.repositories.UserRepository;
 import com.WDA.bookstore.utils.MapperBase;
@@ -23,40 +23,56 @@ public class UserService {
     @Autowired
     private MapperBase mapperBase;
 
-    public List<UserDTO> findAll() {
-        return mapperBase.toList(userRepository.findAll(), new TypeToken<List<UserDTO>>() {
+    public List<UserOutput> findAll() {
+        return mapperBase.toList(userRepository.findAll(), new TypeToken<List<UserOutput>>() {
         }.getType());
     }
 
-    public User create(User user) {
-        Optional<User> userName = userRepository.findByName(user.getName());
-        Optional<User> userEmail = userRepository.findByEmail(user.getEmail());
+    public List<User> WhoRentsMore() {
+        return mapperBase.toList(userRepository.findWhoRentsMore(), new TypeToken<List<UserOutput>>() {
+        }.getType());
+    }
 
-        if(userName.isPresent()) {
-            throw new UserNameAlredyExistsException(user.getName());
-        } else if(userEmail.isPresent()) {
-            throw new UserEmailAlredyExistsException(user.getEmail());
-        } else {
-            return userRepository.save(user);
-        }
+    public void create(User user) {
+        checkIfCanCreateUser(user);
     }
 
     public void delete(Long id) {
-        userRepository.deleteById(id);
+        User user = userRepository.findById(id).get();
+        if(user.getTotal_rents() > 0) {
+            throw new CantDeleteException.UserCantBeDeleted();
+        } else {
+            userRepository.deleteById(id);
+        }
     }
 
-    public User update(Long id, User user) {
-        user.setId(id);
+    public void update(User user) {
+        user.getId();
+        checkIfCanUpdateUser(user);
+    }
 
+    private void checkIfCanUpdateUser(User user) {
+        Optional<User> userName = userRepository.findByName(user.getName());
+        Optional<User> userEmail = userRepository.findByEmail(user.getEmail());
+        if(userName.isPresent()) {
+            throw new EntityAlreadyExistsException.UserNameAlredyExistsException();
+        } else if(userEmail.isPresent()) {
+            throw new EntityAlreadyExistsException.UserEmailAlredyExistsException();
+        } else {
+            userRepository.save(user);
+        }
+    }
+
+    private void checkIfCanCreateUser(User user) {
         Optional<User> userName = userRepository.findByName(user.getName());
         Optional<User> userEmail = userRepository.findByEmail(user.getEmail());
 
         if(userName.isPresent()) {
-            throw new UserNameAlredyExistsException(user.getName());
+            throw new EntityAlreadyExistsException.UserNameAlredyExistsException();
         } else if(userEmail.isPresent()) {
-            throw new UserEmailAlredyExistsException(user.getEmail());
+            throw new EntityAlreadyExistsException.UserEmailAlredyExistsException();
         } else {
-            return userRepository.save(user);
+            userRepository.save(user);
         }
     }
 

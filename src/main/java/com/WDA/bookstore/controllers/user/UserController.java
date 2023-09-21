@@ -1,7 +1,9 @@
 package com.WDA.bookstore.controllers.user;
 
-import com.WDA.bookstore.dtos.UserDTO;
+import com.WDA.bookstore.dtos.inputs.UserInput;
+import com.WDA.bookstore.dtos.outputs.UserOutput;
 import com.WDA.bookstore.mappers.UserMapper;
+import com.WDA.bookstore.models.User;
 import com.WDA.bookstore.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -23,27 +25,33 @@ public class UserController implements UserControllerDocs {
 
     @PostMapping
     @Override
-    public ResponseEntity<Void> create(@RequestBody @Valid UserDTO user) {
+    public ResponseEntity<Void> create(@RequestBody @Valid UserInput user) {
         userService.create(userMapper.mapTo(user));
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
+    @GetMapping("whoRentsMore")
+    @Override
+    public ResponseEntity<List<User>> WhoRentsMore() {
+        return new ResponseEntity<>(userService.WhoRentsMore(), HttpStatus.OK);
+    }
+
     @GetMapping
     @Override
-    public ResponseEntity<List<UserDTO>> findAll() {
+    public ResponseEntity<List<UserOutput>> findAll() {
         return new ResponseEntity<>(userService.findAll(), HttpStatus.OK);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping
     @Override
-    public ResponseEntity<Void> update(@PathVariable Long id, @RequestBody UserDTO user) {
-        userService.update(id, userMapper.mapTo(user));
+    public ResponseEntity<Void> update(@RequestBody UserInput user) {
+        userService.update(userMapper.mapTo(user));
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     @DeleteMapping("/{id}")
     @Override
-    public ResponseEntity<Void> delete(Long id) {
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
         userService.delete(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }

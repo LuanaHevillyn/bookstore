@@ -1,6 +1,7 @@
 package com.WDA.bookstore.controllers.user;
 
-import com.WDA.bookstore.dtos.UserDTO;
+import com.WDA.bookstore.dtos.inputs.UserInput;
+import com.WDA.bookstore.models.User;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.ApiResponse;
@@ -8,6 +9,8 @@ import io.swagger.annotations.ApiResponses;
 import org.springframework.beans.factory.parsing.Problem;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Api(tags = "Users")
 @ApiResponses({@ApiResponse(code = 500, message = "There was an internal error", response = Problem.class)})
@@ -20,14 +23,17 @@ public interface UserControllerDocs {
     })
 
     @PostMapping
-    ResponseEntity<Void> create(@ApiParam(name = "body", value = "Representation of a new user", required = true) UserDTO request);
+    ResponseEntity<Void> create(@ApiParam(name = "body", value = "Representation of a new user", required = true) UserInput request);
+
+    @GetMapping("whoRentsMore")
+    ResponseEntity<List<User>> WhoRentsMore();
 
     @GetMapping
     ResponseEntity<?> findAll();
 
     @PutMapping
-    ResponseEntity<Void> update(@PathVariable Long id, @RequestBody UserDTO user);
+    ResponseEntity<Void> update(@RequestBody UserInput user);
 
-    @DeleteMapping
-    ResponseEntity<Void> delete(Long id);
+    @DeleteMapping("/{id}")
+    ResponseEntity<Void> delete(@PathVariable Long id);
 }

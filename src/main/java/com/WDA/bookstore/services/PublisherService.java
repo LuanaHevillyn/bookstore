@@ -1,7 +1,8 @@
 package com.WDA.bookstore.services;
 
-import com.WDA.bookstore.dtos.PublisherDTO;
-import com.WDA.bookstore.exceptions.publisherException.PublisherNameAlredyExistsException;
+import com.WDA.bookstore.dtos.outputs.PublisherOutput;
+import com.WDA.bookstore.exceptions.CantDeleteException;
+import com.WDA.bookstore.exceptions.EntityAlreadyExistsException;
 import com.WDA.bookstore.models.Publisher;
 import com.WDA.bookstore.repositories.PublisherRepository;
 import com.WDA.bookstore.utils.MapperBase;
@@ -11,7 +12,6 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @Transactional
@@ -23,34 +23,38 @@ public class PublisherService {
     @Autowired
     private MapperBase mapperBase;
 
-    public List<PublisherDTO> findAll() {
-        return mapperBase.toList(publisherRepository.findAll(), new TypeToken<List<PublisherDTO>>() {
+    public List<PublisherOutput> findAll() {
+        return mapperBase.toList(publisherRepository.findAll(), new TypeToken<List<PublisherOutput>>() {
         }.getType());
     }
 
-    public Publisher create(Publisher publisher) {
-        Optional<Publisher> publisherName = publisherRepository.findByName(publisher.getName());
+    public List<Publisher> findMostUsed() {
+        return mapperBase.toList(publisherRepository.findMostUsed(), new TypeToken<List<PublisherOutput>>() {
+        }.getType());
+    }
 
-        if(publisherName.isPresent()) {
-            throw new PublisherNameAlredyExistsException(publisher.getName());
-        } else {
-            return publisherRepository.save(publisher);
+    public void create(Publisher publisher) {
+        if(publisherRepository.existsByName(publisher.getName())) {
+            throw new EntityAlreadyExistsException.PublisherNameAlredyExistsException();
         }
+        publisherRepository.save(publisher);
+
     }
 
     public void delete(Long id) {
+        Publisher publisher = publisherRepository.findById(id).get();
+        if(publisher.getRelated_books() > 0) {
+            throw new CantDeleteException.PublisherCantBeDeleted();
+        }
         publisherRepository.deleteById(id);
     }
 
-    public Publisher update(Long id, Publisher publisher) {
-        publisher.setId(id);
-        Optional<Publisher> publisherName = publisherRepository.findByName(publisher.getName());
-
-        if(publisherName.isPresent()) {
-            throw new PublisherNameAlredyExistsException(publisher.getName());
+    public void update(Publisher publisher) {
+        publisher.getId();
+        if(publisherRepository.existsByName(publisher.getName())) {
+            throw new EntityAlreadyExistsException.PublisherNameAlredyExistsException();
+        } else {
+            publisherRepository.save(publisher);
         }
-        return publisherRepository.save(publisher);
-
     }
-
 }

@@ -1,8 +1,7 @@
 package com.WDA.bookstore.dtos.inputs;
 
 
-import com.WDA.bookstore.models.Book;
-import com.WDA.bookstore.models.User;
+import com.WDA.bookstore.dtos.outputs.BookOutput;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -10,25 +9,25 @@ import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.FutureOrPresent;
-import javax.validation.constraints.PastOrPresent;
 import java.time.LocalDate;
-
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class RentDTO {
+public class RentInput {
 
-    private User user;
+    private Long id;
 
-    private Book book;
+    private UserInput user;
 
-    @PastOrPresent
+    private BookOutput book;
+
+    @FutureOrPresent
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate rent_date;
 
-    @PastOrPresent
+    @FutureOrPresent
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate forecast_date;
 

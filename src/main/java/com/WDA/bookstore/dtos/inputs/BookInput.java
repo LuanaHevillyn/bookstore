@@ -1,7 +1,6 @@
 package com.WDA.bookstore.dtos.inputs;
 
 
-import com.WDA.bookstore.models.Publisher;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -15,7 +14,9 @@ import javax.validation.constraints.NotEmpty;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class BookDTO {
+public class BookInput {
+
+    private Long id;
 
     @NotEmpty(message = "Nome não pode estar vazio!")
     private String name;
@@ -23,7 +24,7 @@ public class BookDTO {
     @NotEmpty(message = "Autor não pode estar vazio!")
     private String author;
 
-    private Publisher publisher;
+    private PublisherInput publisher;
 
     @ApiModelProperty(example = "2020", required = true)
     private Integer launch;
@@ -31,5 +32,7 @@ public class BookDTO {
     @ApiModelProperty(example = "1", required = true)
     @Min(value = 1, message = "Não é permitido menos que 1 na quantidade de livros!")
     private Integer amount;
+
+    private Integer total_leased;
 
 }
