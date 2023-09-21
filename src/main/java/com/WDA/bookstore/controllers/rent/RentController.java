@@ -1,6 +1,7 @@
 package com.WDA.bookstore.controllers.rent;
 
-import com.WDA.bookstore.dtos.RentDTO;
+import com.WDA.bookstore.dtos.inputs.RentInput;
+import com.WDA.bookstore.dtos.outputs.RentOutput;
 import com.WDA.bookstore.mappers.RentMapper;
 import com.WDA.bookstore.services.RentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,21 +24,21 @@ public class RentController implements RentControllerDocs {
 
     @PostMapping
     @Override
-    public ResponseEntity<Void> create(@RequestBody @Valid RentDTO rent) {
+    public ResponseEntity<Void> create(@RequestBody @Valid RentInput rent) {
         rentService.create(rentMapper.mapTo(rent));
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @GetMapping
     @Override
-    public ResponseEntity<List<RentDTO>> findAll() {
+    public ResponseEntity<List<RentOutput>> findAll() {
         return new ResponseEntity<>(rentService.findAll(), HttpStatus.OK);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping
     @Override
-    public ResponseEntity<Void> update(@PathVariable Long id, @RequestBody RentDTO rent) {
-        rentService.update(id, rentMapper.mapTo(rent));
+    public ResponseEntity<Void> update(@RequestBody RentInput rent) {
+        rentService.update(rentMapper.mapTo(rent));
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
