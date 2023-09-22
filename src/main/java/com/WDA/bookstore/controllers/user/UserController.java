@@ -30,10 +30,10 @@ public class UserController implements UserControllerDocs {
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
-    @GetMapping("whoRentsMore")
+    @GetMapping("who-rents-more")
     @Override
-    public ResponseEntity<List<User>> WhoRentsMore() {
-        return new ResponseEntity<>(userService.WhoRentsMore(), HttpStatus.OK);
+    public ResponseEntity<List<User>> whoRentsMore() {
+        return new ResponseEntity<>(userService.whoRentsMore(), HttpStatus.OK);
     }
 
     @GetMapping

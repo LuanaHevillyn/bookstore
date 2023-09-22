@@ -13,5 +13,5 @@ public class PublisherOutput {
 
     private String city;
 
-    private int related_books;
+    private int relatedBooks;
 }

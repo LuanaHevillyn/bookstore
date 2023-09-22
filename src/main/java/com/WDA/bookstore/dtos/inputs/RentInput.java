@@ -25,14 +25,14 @@ public class RentInput {
 
     @FutureOrPresent
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private LocalDate rent_date;
+    private LocalDate rentDate;
 
     @FutureOrPresent
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private LocalDate forecast_date;
+    private LocalDate forecastDate;
 
     @FutureOrPresent
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private LocalDate return_date;
+    private LocalDate returnDate;
 
 }

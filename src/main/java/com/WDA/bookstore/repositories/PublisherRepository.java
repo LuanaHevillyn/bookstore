@@ -11,6 +11,6 @@ import java.util.List;
 public interface PublisherRepository extends JpaRepository<Publisher, Long> {
     boolean existsByName(String name);
 
-    @Query("SELECT publisher FROM Publisher publisher WHERE publisher.related_books = (SELECT MAX(publisher.related_books) FROM publisher)")
+    @Query("SELECT publisher FROM Publisher publisher WHERE publisher.relatedBooks = (SELECT MAX(publisher.relatedBooks) FROM publisher)")
     List<Publisher> findMostUsed();
 }

@@ -28,11 +28,14 @@ public interface BookControllerDocs {
     @GetMapping
     ResponseEntity<?> findAll();
 
-    @GetMapping("mostRented")
-    ResponseEntity<List<Book>> MostRented();
+    @GetMapping("most-rented")
+    ResponseEntity<List<Book>> mostRented();
 
-    @GetMapping("listOfMostRented")
-    ResponseEntity<List<Book>> ListOfMostRented();
+    @GetMapping("list-of-most-rented")
+    ResponseEntity<List<Book>> listOfMostRented();
+
+    @GetMapping("list-of-available")
+    ResponseEntity<List<Book>> listOfAvailable();
 
     @PutMapping
     ResponseEntity<Void> update(@RequestBody BookInput book);

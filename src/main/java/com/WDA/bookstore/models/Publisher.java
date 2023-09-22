@@ -23,8 +23,8 @@ public class Publisher {
     @Column(nullable = false)
     private String city;
 
-    @Column
-    private int related_books;
+    @Column(name = "related_books")
+    private int relatedBooks;
 
     @OneToMany(mappedBy = "publisher")
     private List<Book> book;

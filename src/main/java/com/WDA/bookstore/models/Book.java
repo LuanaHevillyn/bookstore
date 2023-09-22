@@ -31,8 +31,8 @@ public class Book {
     @Column(nullable = false)
     private int amount;
 
-    @Column
-    private int total_leased;
+    @Column(name = "total_leased")
+    private int totalLeased;
 
     @OneToMany(mappedBy = "book")
     private List<Rent> rents;

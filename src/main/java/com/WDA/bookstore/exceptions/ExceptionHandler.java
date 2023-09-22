@@ -1,5 +1,15 @@
 package com.WDA.bookstore.exceptions;
 
+import com.WDA.bookstore.exceptions.book.AmountIsZero;
+import com.WDA.bookstore.exceptions.book.BookCantBeDeletedException;
+import com.WDA.bookstore.exceptions.book.LaunchYearItsNotValidException;
+import com.WDA.bookstore.exceptions.publisher.PublisherAlreadyRelatedException;
+import com.WDA.bookstore.exceptions.publisher.PublisherCantBeDeletedException;
+import com.WDA.bookstore.exceptions.publisher.PublisherNameAlreadyExistsException;
+import com.WDA.bookstore.exceptions.rent.RentCantBeDeletedException;
+import com.WDA.bookstore.exceptions.user.UserCantBeDeletedException;
+import com.WDA.bookstore.exceptions.user.UserEmailAlreadyExistsException;
+import com.WDA.bookstore.exceptions.user.UserNameAlreadyExistsException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,8 +26,8 @@ import java.util.List;
 @ControllerAdvice
 public class ExceptionHandler extends ResponseEntityExceptionHandler {
 
-    @org.springframework.web.bind.annotation.ExceptionHandler(EntityAlreadyExistsException.class)
-    public ResponseEntity<Object> handleEntityExistsException(EntityAlreadyExistsException exception) {
+    @org.springframework.web.bind.annotation.ExceptionHandler(AmountIsZero.class)
+    public ResponseEntity<Object> handleAmountIsZeroException(AmountIsZero exception) {
         return buildResponseEntity(
                 HttpStatus.BAD_REQUEST,
                 exception.getMessage(),
@@ -25,8 +35,8 @@ public class ExceptionHandler extends ResponseEntityExceptionHandler {
         );
     }
 
-    @org.springframework.web.bind.annotation.ExceptionHandler(CantDeleteException.class)
-    public ResponseEntity<Object> handleCantDeleteException(CantDeleteException exception) {
+    @org.springframework.web.bind.annotation.ExceptionHandler(BookCantBeDeletedException.class)
+    public ResponseEntity<Object> handleBookCantBeDeletedException(BookCantBeDeletedException exception) {
         return buildResponseEntity(
                 HttpStatus.BAD_REQUEST,
                 exception.getMessage(),
@@ -34,8 +44,71 @@ public class ExceptionHandler extends ResponseEntityExceptionHandler {
         );
     }
 
-    @org.springframework.web.bind.annotation.ExceptionHandler(illegalArgumentException.class)
-    public ResponseEntity<Object> handleIllegalArgumentException(illegalArgumentException exception) {
+    @org.springframework.web.bind.annotation.ExceptionHandler(LaunchYearItsNotValidException.class)
+    public ResponseEntity<Object> handleLaunchYearItsNotValidException(LaunchYearItsNotValidException exception) {
+        return buildResponseEntity(
+                HttpStatus.BAD_REQUEST,
+                exception.getMessage(),
+                Collections.singletonList(exception.getMessage())
+        );
+    }
+
+    @org.springframework.web.bind.annotation.ExceptionHandler(PublisherAlreadyRelatedException.class)
+    public ResponseEntity<Object> handlePublisherAlreadyRelatedException(PublisherAlreadyRelatedException exception) {
+        return buildResponseEntity(
+                HttpStatus.BAD_REQUEST,
+                exception.getMessage(),
+                Collections.singletonList(exception.getMessage())
+        );
+    }
+
+    @org.springframework.web.bind.annotation.ExceptionHandler(PublisherCantBeDeletedException.class)
+    public ResponseEntity<Object> handleIllegalArgumentException(PublisherCantBeDeletedException exception) {
+        return buildResponseEntity(
+                HttpStatus.BAD_REQUEST,
+                exception.getMessage(),
+                Collections.singletonList(exception.getMessage())
+        );
+    }
+
+    @org.springframework.web.bind.annotation.ExceptionHandler(PublisherNameAlreadyExistsException.class)
+    public ResponseEntity<Object> handlePublisherNameAlreadyExistsException(PublisherNameAlreadyExistsException exception) {
+        return buildResponseEntity(
+                HttpStatus.BAD_REQUEST,
+                exception.getMessage(),
+                Collections.singletonList(exception.getMessage())
+        );
+    }
+
+    @org.springframework.web.bind.annotation.ExceptionHandler(RentCantBeDeletedException.class)
+    public ResponseEntity<Object> handleRentCantBeDeletedException(RentCantBeDeletedException exception) {
+        return buildResponseEntity(
+                HttpStatus.BAD_REQUEST,
+                exception.getMessage(),
+                Collections.singletonList(exception.getMessage())
+        );
+    }
+
+    @org.springframework.web.bind.annotation.ExceptionHandler(UserCantBeDeletedException.class)
+    public ResponseEntity<Object> handleUserCantBeDeletedException(UserCantBeDeletedException exception) {
+        return buildResponseEntity(
+                HttpStatus.BAD_REQUEST,
+                exception.getMessage(),
+                Collections.singletonList(exception.getMessage())
+        );
+    }
+
+    @org.springframework.web.bind.annotation.ExceptionHandler(UserEmailAlreadyExistsException.class)
+    public ResponseEntity<Object> handleUserEmailAlreadyExistsException(UserEmailAlreadyExistsException exception) {
+        return buildResponseEntity(
+                HttpStatus.BAD_REQUEST,
+                exception.getMessage(),
+                Collections.singletonList(exception.getMessage())
+        );
+    }
+
+    @org.springframework.web.bind.annotation.ExceptionHandler(UserNameAlreadyExistsException.class)
+    public ResponseEntity<Object> handleUserNameAlreadyExistsException(UserNameAlreadyExistsException exception) {
         return buildResponseEntity(
                 HttpStatus.BAD_REQUEST,
                 exception.getMessage(),

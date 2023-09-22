@@ -37,16 +37,22 @@ public class BookController implements BookControllerDocs {
         return new ResponseEntity<>(bookService.findAll(), HttpStatus.OK);
     }
 
-    @GetMapping("mostRented")
+    @GetMapping("most-rented")
     @Override
-    public ResponseEntity<List<Book>> MostRented() {
-        return new ResponseEntity<>(bookService.MostRented(), HttpStatus.OK);
+    public ResponseEntity<List<Book>> mostRented() {
+        return new ResponseEntity<>(bookService.mostRented(), HttpStatus.OK);
     }
 
-    @GetMapping("listOfMostRented")
+    @GetMapping("list-of-most-rented")
     @Override
-    public ResponseEntity<List<Book>> ListOfMostRented() {
-        return new ResponseEntity<>(bookService.ListOfMostRented(), HttpStatus.OK);
+    public ResponseEntity<List<Book>> listOfMostRented() {
+        return new ResponseEntity<>(bookService.listOfMostRented(), HttpStatus.OK);
+    }
+
+    @GetMapping("list-of-available")
+    @Override
+    public ResponseEntity<List<Book>> listOfAvailable() {
+        return new ResponseEntity<>(bookService.listOfAvailable(), HttpStatus.OK);
     }
 
     @PutMapping

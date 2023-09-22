@@ -1,11 +1,10 @@
 package com.WDA.bookstore.services;
 
 import com.WDA.bookstore.dtos.outputs.PublisherOutput;
-import com.WDA.bookstore.exceptions.CantDeleteException;
-import com.WDA.bookstore.exceptions.EntityAlreadyExistsException;
 import com.WDA.bookstore.models.Publisher;
 import com.WDA.bookstore.repositories.PublisherRepository;
 import com.WDA.bookstore.utils.MapperBase;
+import com.WDA.bookstore.validations.publisher.PublisherEntityValidator;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,6 +15,8 @@ import java.util.List;
 @Service
 @Transactional
 public class PublisherService {
+    @Autowired
+    private PublisherEntityValidator publisherEntityValidator;
 
     @Autowired
     private PublisherRepository publisherRepository;
@@ -34,27 +35,17 @@ public class PublisherService {
     }
 
     public void create(Publisher publisher) {
-        if(publisherRepository.existsByName(publisher.getName())) {
-            throw new EntityAlreadyExistsException.PublisherNameAlredyExistsException();
-        }
+        publisherEntityValidator.validateForCreate(publisher);
         publisherRepository.save(publisher);
-
     }
 
     public void delete(Long id) {
-        Publisher publisher = publisherRepository.findById(id).get();
-        if(publisher.getRelated_books() > 0) {
-            throw new CantDeleteException.PublisherCantBeDeleted();
-        }
+        publisherEntityValidator.validateForDelete(id);
         publisherRepository.deleteById(id);
     }
 
     public void update(Publisher publisher) {
-        publisher.getId();
-        if(publisherRepository.existsByName(publisher.getName())) {
-            throw new EntityAlreadyExistsException.PublisherNameAlredyExistsException();
-        } else {
-            publisherRepository.save(publisher);
-        }
+        publisherEntityValidator.validateForUpdate(publisher);
+        publisherRepository.save(publisher);
     }
 }

@@ -17,5 +17,5 @@ public class UserOutput {
 
     private String address;
 
-    private int total_rents;
+    private int totalRents;
 }
