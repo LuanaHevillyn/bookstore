@@ -12,10 +12,12 @@ import java.util.List;
 public interface BookRepository extends JpaRepository<Book, Long> {
     boolean existsByPublisherAndName(Publisher publisher, String bookName);
 
-    @Query("SELECT book FROM Book book WHERE book.total_leased = (SELECT MAX(book.total_leased) FROM book)")
+    @Query("SELECT book FROM Book book WHERE book.totalLeased = (SELECT MAX(book.totalLeased) FROM book)")
     List<Book> findMostRented();
 
-    @Query("SELECT book FROM Book book WHERE book.total_leased > 5")
+    @Query("SELECT book FROM Book book WHERE book.totalLeased > 5")
     List<Book> findListOfMostRented();
 
+    @Query("SELECT book FROM Book book WHERE book.amount > 0")
+    List<Book> findListOfAvaliable();
 }

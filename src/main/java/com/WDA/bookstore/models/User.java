@@ -28,8 +28,8 @@ public class User {
     @Column(nullable = false)
     private String address;
 
-    @Column
-    private int total_rents;
+    @Column(name = "total_rents")
+    private int totalRents;
 
     @OneToMany(mappedBy = "user")
     private List<Rent> rents;

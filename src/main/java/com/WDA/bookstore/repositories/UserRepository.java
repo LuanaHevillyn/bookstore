@@ -6,15 +6,14 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
-import java.util.Optional;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
 
-    Optional<User> findByName(String name);
+    boolean existsByName(String name);
 
-    Optional<User> findByEmail(String email);
+    boolean existsByEmail(String email);
 
-    @Query("SELECT user FROM User user WHERE user.total_rents = (SELECT MAX(user.total_rents) FROM user)")
+    @Query("SELECT user FROM User user WHERE user.totalRents = (SELECT MAX(user.totalRents) FROM user)")
     List<User> findWhoRentsMore();
 }

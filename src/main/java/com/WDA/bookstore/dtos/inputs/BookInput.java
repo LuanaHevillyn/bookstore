@@ -33,6 +33,5 @@ public class BookInput {
     @Min(value = 1, message = "Não é permitido menos que 1 na quantidade de livros!")
     private Integer amount;
 
-    private Integer total_leased;
-
+    private Integer totalLeased;
 }

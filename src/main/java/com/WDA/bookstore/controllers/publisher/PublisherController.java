@@ -44,7 +44,7 @@ public class PublisherController implements PublisherControllerDocs {
         return new ResponseEntity<>(publisherService.findAll(), HttpStatus.OK);
     }
 
-    @GetMapping("findMostUsed")
+    @GetMapping("find-most-used")
     @Override
     public ResponseEntity<List<Publisher>> findMostUsed() {
         return new ResponseEntity<>(publisherService.findMostUsed(), HttpStatus.OK);

@@ -25,8 +25,9 @@ public interface UserControllerDocs {
     @PostMapping
     ResponseEntity<Void> create(@ApiParam(name = "body", value = "Representation of a new user", required = true) UserInput request);
 
-    @GetMapping("whoRentsMore")
-    ResponseEntity<List<User>> WhoRentsMore();
+
+    @GetMapping("who-rents-more")
+    ResponseEntity<List<User>> whoRentsMore();
 
     @GetMapping
     ResponseEntity<?> findAll();

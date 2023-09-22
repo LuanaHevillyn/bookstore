@@ -23,6 +23,6 @@ public class PublisherInput {
     @NotEmpty(message = "Cidade não pode estar vazia!")
     private String city;
 
-    private Integer related_books;
+    private Integer relatedBooks;
 
 }

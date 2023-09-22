@@ -29,5 +29,5 @@ public class UserInput {
     @NotEmpty(message = "Endereço não pode estar vazio!")
     private String address;
 
-    private int total_rents;
+    private int totalRents;
 }

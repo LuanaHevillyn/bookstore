@@ -22,14 +22,14 @@ public class Rent {
     @ManyToOne(cascade = {CascadeType.MERGE})
     private Book book;
 
-    @Column(nullable = false)
-    private LocalDate rent_date;
+    @Column(nullable = false, name = "rent_date")
+    private LocalDate rentDate;
 
-    @Column(nullable = false)
-    private LocalDate forecast_date;
+    @Column(nullable = false, name = "forecast_date")
+    private LocalDate forecastDate;
 
-    @Column
-    private LocalDate return_date;
+    @Column(name = "return_date")
+    private LocalDate returnDate;
 
     @Column(nullable = false)
     private String status;

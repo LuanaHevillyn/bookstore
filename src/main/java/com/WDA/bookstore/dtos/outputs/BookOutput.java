@@ -19,5 +19,5 @@ public class BookOutput {
 
     private Integer amount;
 
-    private int total_leased;
+    private int totalLeased;
 }

@@ -15,11 +15,11 @@ public class RentOutput {
 
     private BookOutput book;
 
-    private LocalDate rent_date;
+    private LocalDate rentDate;
 
-    private LocalDate forecast_date;
+    private LocalDate forecastDate;
 
-    private LocalDate return_date;
+    private LocalDate returnDate;
 
     private String status;
 }
