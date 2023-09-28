@@ -1,10 +1,8 @@
-package com.WDA.bookstore.dtos.inputs;
+package com.WDA.bookstore.dtos.book;
 
-
+import com.WDA.bookstore.dtos.inputs.PublisherInput;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.validation.constraints.Min;
@@ -12,9 +10,7 @@ import javax.validation.constraints.NotEmpty;
 
 @Getter
 @Setter
-@AllArgsConstructor
-@NoArgsConstructor
-public class BookInput {
+public class BookUpdateDTO {
 
     private Long id;
 

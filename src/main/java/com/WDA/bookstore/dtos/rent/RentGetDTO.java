@@ -1,11 +1,11 @@
-package com.WDA.bookstore.dtos.outputs;
+package com.WDA.bookstore.dtos.publisher;
 
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
-public class PublisherOutput {
+public class PublisherGetDTO {
 
     private Long id;
 
