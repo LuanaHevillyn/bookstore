@@ -54,7 +54,7 @@ public class PublisherController implements PublisherControllerDocs {
 
     @GetMapping("/{id}")
     @Override
-    public Optional<Publisher> findById(Long id) {
+    public PublisherGetDTO findById(Long id) {
         return publisherService.findById(id);
     }
 

@@ -1,6 +1,7 @@
 package com.WDA.bookstore.controllers.user;
 
 import com.WDA.bookstore.dtos.user.UserCreateDTO;
+import com.WDA.bookstore.dtos.user.UserGetDTO;
 import com.WDA.bookstore.dtos.user.UserUpdateDTO;
 import com.WDA.bookstore.models.User;
 import io.swagger.annotations.Api;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Optional;
 
 @Api(tags = "Users")
 @ApiResponses({@ApiResponse(code = 500, message = "There was an internal error", response = Problem.class)})
@@ -33,6 +35,9 @@ public interface UserControllerDocs {
 
     @GetMapping
     ResponseEntity<?> findAll();
+
+    @GetMapping("/{id}")
+    UserGetDTO findById(Long id);
 
     @PutMapping
     ResponseEntity<Void> update(@RequestBody @Valid UserUpdateDTO user);

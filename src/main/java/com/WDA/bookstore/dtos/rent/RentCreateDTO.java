@@ -6,17 +6,16 @@ import lombok.Setter;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.ManyToOne;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 import java.time.LocalDate;
 @Getter
 @Setter
 public class RentCreateDTO {
-    @ManyToOne(cascade = {CascadeType.MERGE})
+
     private Long userId;
 
-    @ManyToOne(cascade = {CascadeType.MERGE})
     private Long bookId;
 
-    @Column(nullable = false, name = "forecast_date")
     private LocalDate forecastDate;
-
 }

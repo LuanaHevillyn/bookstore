@@ -17,9 +17,11 @@ public class Rent {
     private Long id;
 
     @ManyToOne
+    @JoinColumn(name = "user_id")
     private User user;
 
     @ManyToOne
+    @JoinColumn(name = "book_id")
     private Book book;
 
     @Column(nullable = false, name = "rent_date")

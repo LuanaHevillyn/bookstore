@@ -1,6 +1,9 @@
 package com.WDA.bookstore.services.publisher;
 
+import com.WDA.bookstore.dtos.book.BookGetDTO;
 import com.WDA.bookstore.dtos.publisher.PublisherGetDTO;
+import com.WDA.bookstore.exceptions.book.BookDoesntExistException;
+import com.WDA.bookstore.exceptions.publisher.PublisherDoesntExistException;
 import com.WDA.bookstore.models.Publisher;
 import com.WDA.bookstore.repositories.PublisherRepository;
 import com.WDA.bookstore.utils.MapperBase;
@@ -30,8 +33,10 @@ public class PublisherServiceImpl implements PublisherService{
         }.getType());
     }
 
-    public Optional<Publisher> findById(Long id) {
-        return publisherRepository.findById(id);
+    public PublisherGetDTO findById(Long id) {
+        return publisherRepository.findById(id)
+                .map(publisher -> mapperBase.mapTo(publisher, PublisherGetDTO.class))
+                .orElseThrow(() -> new PublisherDoesntExistException());
     }
 
     public List<Publisher> findMostUsed() {

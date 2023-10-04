@@ -1,5 +1,6 @@
 package com.WDA.bookstore.services.publisher;
 
+import com.WDA.bookstore.dtos.publisher.PublisherGetDTO;
 import com.WDA.bookstore.models.Publisher;
 import org.springframework.stereotype.Component;
 
@@ -13,7 +14,7 @@ public interface PublisherService {
     List<Publisher> findAll();
     List<Publisher> findMostUsed();
 
-    Optional<Publisher> findById(Long id);
+    PublisherGetDTO findById(Long id);
 
     void create(Publisher publisher);
 

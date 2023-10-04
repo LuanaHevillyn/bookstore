@@ -24,4 +24,5 @@ public class BookCreateDTO {
     @ApiModelProperty(example = "1", required = true)
     @Min(value = 1, message = "Não é permitido menos que 1 na quantidade de livros!")
     private Integer amount;
+
 }

@@ -26,13 +26,22 @@ public class RentMapper {
         user.setId(rentCreateDTO.getUserId());
         rent.setUser(user);
         book.setId(rentCreateDTO.getBookId());
-        rent.setUser(user);
+        rent.setBook(book);
         rent.setForecastDate(rentCreateDTO.getForecastDate());
         return rent;
     }
 
     public Rent mapTo(@Valid RentUpdateDTO rentUpdateDTO) {
-        return modelMapper.map(rentUpdateDTO, Rent.class);
+        Rent rent = new Rent();
+        User user = new User();
+        Book book = new Book();
+        user.setId(rentUpdateDTO.getUserId());
+        rent.setUser(user);
+        book.setId(rentUpdateDTO.getBookId());
+        rent.setBook(book);
+        rent.setId(rentUpdateDTO.getId());
+        rent.setReturnDate(rentUpdateDTO.getReturnDate());
+        return rent;
     }
 
 }

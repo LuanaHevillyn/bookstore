@@ -1,6 +1,7 @@
 package com.WDA.bookstore.controllers.user;
 
 import com.WDA.bookstore.dtos.user.UserCreateDTO;
+import com.WDA.bookstore.dtos.user.UserGetDTO;
 import com.WDA.bookstore.dtos.user.UserUpdateDTO;
 import com.WDA.bookstore.mappers.UserMapper;
 import com.WDA.bookstore.models.User;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/v1/users")
@@ -40,6 +42,12 @@ public class UserController implements UserControllerDocs {
     @Override
     public ResponseEntity<List<User>> findAll() {
         return new ResponseEntity<>(userService.findAll(), HttpStatus.OK);
+    }
+
+    @GetMapping("/{id}")
+    @Override
+    public UserGetDTO findById(Long id) {
+        return userService.findById(id);
     }
 
     @PutMapping

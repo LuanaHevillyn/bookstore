@@ -12,18 +12,20 @@ import javax.validation.Valid;
 @Component("publisherDocs")
 public class PublisherMapper {
 
-    private ModelMapper modelMapper;
-
-    public PublisherMapper() {
-        modelMapper = new ModelMapper();
-    }
-
     public Publisher mapTo(@Valid PublisherCreateDTO publisherCreateDTO) {
-        return modelMapper.map(publisherCreateDTO, Publisher.class);
+        Publisher publisher = new Publisher();
+        publisher.setId(0L);
+        publisher.setName(publisherCreateDTO.getName());
+        publisher.setCity(publisherCreateDTO.getCity());
+        return publisher;
     }
 
     public Publisher mapTo(@Valid PublisherUpdateDTO publisherUpdateDTO) {
-        return modelMapper.map(publisherUpdateDTO, Publisher.class);
+        Publisher publisher = new Publisher();
+        publisher.setId(publisherUpdateDTO.getId());
+        publisher.setName(publisherUpdateDTO.getName());
+        publisher.setCity(publisherUpdateDTO.getCity());
+        return publisher;
     }
 
 }

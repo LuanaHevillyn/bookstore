@@ -1,9 +1,8 @@
 package com.WDA.bookstore.services.book;
 
-import com.WDA.bookstore.dtos.book.BookCreateDTO;
 import com.WDA.bookstore.dtos.book.BookGetDTO;
+import com.WDA.bookstore.exceptions.book.BookDoesntExistException;
 import com.WDA.bookstore.models.Book;
-import com.WDA.bookstore.models.Publisher;
 import com.WDA.bookstore.repositories.BookRepository;
 import com.WDA.bookstore.repositories.PublisherRepository;
 import com.WDA.bookstore.utils.MapperBase;
@@ -14,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -53,6 +53,12 @@ public class BookServiceImpl implements BookService {
     public List<Book> listOfAvailable() {
         return mapperBase.toList(bookRepository.findListOfAvaliable(), new TypeToken<List<BookGetDTO>>() {
         }.getType());
+    }
+
+    public BookGetDTO findById(Long id) {
+        return bookRepository.findById(id)
+                .map(book -> mapperBase.mapTo(book, BookGetDTO.class))
+                .orElseThrow(() -> new BookDoesntExistException());
     }
 
     @Override

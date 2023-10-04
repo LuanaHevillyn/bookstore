@@ -1,6 +1,7 @@
 package com.WDA.bookstore.controllers.book;
 
 import com.WDA.bookstore.dtos.book.BookCreateDTO;
+import com.WDA.bookstore.dtos.book.BookGetDTO;
 import com.WDA.bookstore.dtos.book.BookUpdateDTO;
 import com.WDA.bookstore.models.Book;
 import io.swagger.annotations.Api;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Optional;
 
 @Api(tags = "Books")
 @ApiResponses({@ApiResponse(code = 500, message = "There was an internal error", response = Problem.class)})
@@ -29,6 +31,9 @@ public interface BookControllerDocs {
 
     @GetMapping
     ResponseEntity<?> findAll();
+
+    @GetMapping("/{id}")
+    BookGetDTO findById(Long id);
 
     @GetMapping("most-rented")
     ResponseEntity<List<Book>> mostRented();

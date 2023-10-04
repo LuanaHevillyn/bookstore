@@ -6,6 +6,7 @@ import com.WDA.bookstore.exceptions.publisher.PublisherCantBeDeletedException;
 import com.WDA.bookstore.exceptions.publisher.PublisherDoesntExistException;
 import com.WDA.bookstore.exceptions.publisher.PublisherNameAlreadyExistsException;
 import com.WDA.bookstore.exceptions.rent.RentCantBeDeletedException;
+import com.WDA.bookstore.exceptions.rent.RentDoesntExistException;
 import com.WDA.bookstore.exceptions.user.UserCantBeDeletedException;
 import com.WDA.bookstore.exceptions.user.UserDoesntExistException;
 import com.WDA.bookstore.exceptions.user.UserEmailAlreadyExistsException;
@@ -109,6 +110,15 @@ public class ExceptionHandler extends ResponseEntityExceptionHandler {
 
     @org.springframework.web.bind.annotation.ExceptionHandler(RentCantBeDeletedException.class)
     public ResponseEntity<Object> handleRentCantBeDeletedException(RentCantBeDeletedException exception) {
+        return buildResponseEntity(
+                HttpStatus.BAD_REQUEST,
+                exception.getMessage(),
+                Collections.singletonList(exception.getMessage())
+        );
+    }
+
+    @org.springframework.web.bind.annotation.ExceptionHandler(RentDoesntExistException.class)
+    public ResponseEntity<Object> handleRentDoesntExistException(RentDoesntExistException exception) {
         return buildResponseEntity(
                 HttpStatus.BAD_REQUEST,
                 exception.getMessage(),

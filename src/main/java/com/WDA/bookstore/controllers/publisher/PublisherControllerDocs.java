@@ -1,6 +1,7 @@
 package com.WDA.bookstore.controllers.publisher;
 
 import com.WDA.bookstore.dtos.publisher.PublisherCreateDTO;
+import com.WDA.bookstore.dtos.publisher.PublisherGetDTO;
 import com.WDA.bookstore.dtos.publisher.PublisherUpdateDTO;
 import com.WDA.bookstore.models.Publisher;
 import io.swagger.annotations.Api;
@@ -34,7 +35,7 @@ public interface PublisherControllerDocs {
     @GetMapping("findMostUsed")
     ResponseEntity<List<Publisher>> findMostUsed();
 
-    Optional<Publisher> findById(Long id);
+    PublisherGetDTO findById(Long id);
 
     @PutMapping
     ResponseEntity<Void> update(@RequestBody @Valid PublisherUpdateDTO publisher);

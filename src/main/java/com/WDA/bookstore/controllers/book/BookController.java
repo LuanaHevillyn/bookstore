@@ -2,6 +2,7 @@ package com.WDA.bookstore.controllers.book;
 
 
 import com.WDA.bookstore.dtos.book.BookCreateDTO;
+import com.WDA.bookstore.dtos.book.BookGetDTO;
 import com.WDA.bookstore.dtos.book.BookUpdateDTO;
 import com.WDA.bookstore.mappers.BookMapper;
 import com.WDA.bookstore.models.Book;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/v1/books")
@@ -35,6 +37,13 @@ public class BookController implements BookControllerDocs {
     @Override
     public ResponseEntity<List<Book>> findAll() {
         return new ResponseEntity<>(bookService.findAll(), HttpStatus.OK);
+    }
+
+
+    @GetMapping("/{id}")
+    @Override
+    public BookGetDTO findById(Long id) {
+        return bookService.findById(id);
     }
 
     @GetMapping("most-rented")

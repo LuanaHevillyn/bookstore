@@ -1,6 +1,7 @@
 package com.WDA.bookstore.controllers.rent;
 
 import com.WDA.bookstore.dtos.rent.RentCreateDTO;
+import com.WDA.bookstore.dtos.rent.RentGetDTO;
 import com.WDA.bookstore.dtos.rent.RentUpdateDTO;
 import com.WDA.bookstore.mappers.RentMapper;
 import com.WDA.bookstore.models.Rent;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/v1/rents")
@@ -34,6 +36,13 @@ public class RentController implements RentControllerDocs {
     @Override
     public ResponseEntity<List<Rent>> findAll() {
         return new ResponseEntity<>(rentService.findAll(), HttpStatus.OK);
+    }
+
+
+    @GetMapping("/{id}")
+    @Override
+    public RentGetDTO findById(Long id) {
+        return rentService.findById(id);
     }
 
     @PutMapping
