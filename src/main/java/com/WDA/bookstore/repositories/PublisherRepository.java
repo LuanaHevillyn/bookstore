@@ -15,4 +15,6 @@ public interface PublisherRepository extends JpaRepository<Publisher, Long> {
     List<Publisher> findMostUsed();
 
     boolean existsById(Long id);
+
+    boolean existsByName(String name);
 }

@@ -8,7 +8,7 @@ import com.WDA.bookstore.models.Publisher;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 
-@Component("bookDocs")
+@Component
 public class BookMapper {
 
     public Book mapTo(BookCreateDTO bookCreateDTO) {

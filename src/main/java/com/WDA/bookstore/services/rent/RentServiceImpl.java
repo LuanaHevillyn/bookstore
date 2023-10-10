@@ -1,12 +1,9 @@
 package com.WDA.bookstore.services.rent;
 
-import com.WDA.bookstore.dtos.book.BookGetDTO;
 import com.WDA.bookstore.dtos.rent.RentGetDTO;
-import com.WDA.bookstore.exceptions.book.AmountCantBeLessThanTheOldValueException;
-import com.WDA.bookstore.exceptions.book.BookDoesntExistException;
+import com.WDA.bookstore.dtos.user.Status;
 import com.WDA.bookstore.exceptions.rent.RentCantBeDeletedException;
 import com.WDA.bookstore.exceptions.rent.RentDoesntExistException;
-import com.WDA.bookstore.exceptions.user.UserDoesntExistException;
 import com.WDA.bookstore.models.Book;
 import com.WDA.bookstore.models.Rent;
 import com.WDA.bookstore.models.User;
@@ -58,6 +55,7 @@ public class RentServiceImpl implements RentService{
     public void create(Rent rent) {
         rentEntityValidator.validateForCreate(rent);
         createRentInformation(rent);
+        rentRepository.save(rent);
     }
 
     public void delete(Long id) {
@@ -67,28 +65,14 @@ public class RentServiceImpl implements RentService{
     public void update(Rent rent) {
         rentEntityValidator.validateForUpdate(rent);
         comparingDates(rent);
-        updateRentInformation(rent);
         rentRepository.save(rent);
     }
 
     private void createRentInformation(Rent rent) {
         rent.setRentDate(LocalDate.now());
-        rent.setStatus("Pendente");
+        rent.setStatus(Status.PENDENTE.getStatus());
+        calculateWhenCreate(rent);
         rentRepository.save(rent);
-
-        Optional<User> userOptional = userRepository.findById(rent.getUser().getId());
-        Optional<Book> bookOptional = bookRepository.findById(rent.getBook().getId());
-        if (userOptional.isPresent() && bookOptional.isPresent()){
-            Book book = bookOptional.get();
-            User user = userOptional.get();
-            book.setTotalLeased(book.getTotalLeased() + 1);
-            book.setAmount(book.getAmount() - 1);
-            user.setTotalRents(user.getTotalRents() + 1);
-        }else if (userOptional.isEmpty()){
-            throw new UserDoesntExistException();
-        }else{
-            throw new BookDoesntExistException();
-        }
     }
 
     private void comparingDates(Rent rent) {
@@ -99,32 +83,39 @@ public class RentServiceImpl implements RentService{
             LocalDate forecastDate = existingRent.getForecastDate();
 
             if (returnDate.isBefore(forecastDate) || returnDate.isEqual(forecastDate)) {
-                rent.setStatus("Devolvido");
+                rent.setStatus(Status.DEVOLVIDO.getStatus());
             } else {
-                rent.setStatus("Atrasado");
+                rent.setStatus(Status.ATRASADO.getStatus());
             }
             rent.setRentDate(existingRent.getRentDate());
             rent.setForecastDate(existingRent.getForecastDate());
-        }else {
-            throw new RentDoesntExistException();
+        }
+        calculateWhenUpdate(rent);
+    }
+
+    public void calculateWhenCreate(Rent rent){
+        Optional<Book> bookOptional = bookRepository.findById(rent.getBook().getId());
+        Optional<User> userOptional = userRepository.findById(rent.getUser().getId());
+
+        if (userOptional.isPresent() && bookOptional.isPresent()){
+            Book book = bookOptional.get();
+            User user = userOptional.get();
+            book.setTotalLeased(book.getTotalLeased() + 1);
+            book.setAmount(book.getAmount() - 1);
+            user.setTotalRents(user.getTotalRents() + 1);
         }
     }
 
-    private void updateRentInformation(Rent rent) {
-        rentRepository.save(rent);
-
-        Optional<User> userOptional = userRepository.findById(rent.getUser().getId());
+    public void calculateWhenUpdate(Rent rent){
         Optional<Book> bookOptional = bookRepository.findById(rent.getBook().getId());
+        Optional<User> userOptional = userRepository.findById(rent.getUser().getId());
+
         if (userOptional.isPresent() && bookOptional.isPresent()){
             Book book = bookOptional.get();
             User user = userOptional.get();
             book.setTotalLeased(book.getTotalLeased() - 1);
             book.setAmount(book.getAmount() + 1);
             user.setTotalRents(user.getTotalRents() - 1);
-        }else if (userOptional.isEmpty()){
-            throw new UserDoesntExistException();
-        }else{
-            throw new BookDoesntExistException();
         }
     }
 }

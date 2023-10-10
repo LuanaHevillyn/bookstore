@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.Column;
+import javax.validation.constraints.FutureOrPresent;
 import javax.validation.constraints.NotEmpty;
 import java.time.LocalDate;
 @Getter
@@ -16,5 +17,6 @@ public class RentUpdateDTO {
 
     private Long bookId;
 
+    @FutureOrPresent
     private LocalDate returnDate;
 }

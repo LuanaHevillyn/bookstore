@@ -10,6 +10,7 @@ import com.WDA.bookstore.models.Book;
 import com.WDA.bookstore.models.Publisher;
 import com.WDA.bookstore.repositories.BookRepository;
 import com.WDA.bookstore.repositories.PublisherRepository;
+import com.WDA.bookstore.repositories.RentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -21,6 +22,9 @@ public class BookEntityValidatorImpl implements BookEntityValidator {
 
     @Autowired
     private BookRepository bookRepository;
+
+    @Autowired
+    private RentRepository rentRepository;
 
     @Autowired
     private PublisherRepository publisherRepository;
@@ -48,10 +52,8 @@ public class BookEntityValidatorImpl implements BookEntityValidator {
         Optional<Publisher> publisherOptional = publisherRepository.findById(book.getPublisher().getId());
         if (publisherOptional.isPresent()) {
             Publisher publisher = publisherOptional.get();
-            if (bookRepository.existsByPublisherAndName(publisher, book.getName())) {
+            if (bookRepository.existsByPublisherAndNameAndIdNot(publisher, book.getName(), book.getId())) {
                 throw new PublisherAlreadyRelatedException();
-            }else{
-                publisher.setRelatedBooks(book.getPublisher().getRelatedBooks() + 1);
             }
         }else {
             throw new PublisherDoesntExistException();
@@ -91,10 +93,8 @@ public class BookEntityValidatorImpl implements BookEntityValidator {
         Optional<Book> bookOptional = bookRepository.findById(id);
         if (bookOptional.isPresent()){
             Book book = bookOptional.get();
-            if (book.getTotalLeased() > 0) {
+            if (rentRepository.existsByBook(book)) {
                 throw new BookCantBeDeletedException();
-            }else {
-                book.getPublisher().setRelatedBooks(book.getPublisher().getRelatedBooks() - 1);
             }
         }else {
             throw new BookDoesntExistException();

@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 
 import javax.validation.Valid;
 
-@Component("publisherDocs")
+@Component
 public class PublisherMapper {
 
     public Publisher mapTo(@Valid PublisherCreateDTO publisherCreateDTO) {
@@ -27,5 +27,4 @@ public class PublisherMapper {
         publisher.setCity(publisherUpdateDTO.getCity());
         return publisher;
     }
-
 }

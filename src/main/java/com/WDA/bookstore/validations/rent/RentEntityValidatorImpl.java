@@ -74,7 +74,6 @@ public class RentEntityValidatorImpl implements RentEntityValidator {
         }
     }
 
-
     private void validateDelete(Long id) {
         throw new RentDoesntExistException();
     }

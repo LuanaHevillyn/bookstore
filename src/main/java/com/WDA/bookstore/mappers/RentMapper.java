@@ -10,14 +10,8 @@ import org.springframework.stereotype.Component;
 
 import javax.validation.Valid;
 
-@Component("rentDocs")
+@Component
 public class RentMapper {
-
-    private ModelMapper modelMapper;
-
-    public RentMapper() {
-        modelMapper = new ModelMapper();
-    }
 
     public Rent mapTo(@Valid RentCreateDTO rentCreateDTO) {
         Rent rent = new Rent();
@@ -43,5 +37,4 @@ public class RentMapper {
         rent.setReturnDate(rentUpdateDTO.getReturnDate());
         return rent;
     }
-
 }
