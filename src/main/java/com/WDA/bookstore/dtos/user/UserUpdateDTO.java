@@ -9,7 +9,6 @@ import javax.validation.constraints.NotEmpty;
 @Getter
 @Setter
 public class UserUpdateDTO {
-
     private Long id;
 
     @NotEmpty(message = "Nome não pode estar vazio!")

@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
-import java.util.Optional;
+
 
 @Api(tags = "Rents")
 @ApiResponses({@ApiResponse(code = 500, message = "There was an internal error", response = Problem.class)})

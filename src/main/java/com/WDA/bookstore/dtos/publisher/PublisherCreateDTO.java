@@ -14,5 +14,4 @@ public class PublisherCreateDTO {
 
     @NotEmpty(message = "Cidade não pode estar vazia!")
     private String city;
-
 }

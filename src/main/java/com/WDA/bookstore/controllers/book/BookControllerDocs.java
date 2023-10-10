@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
-import java.util.Optional;
 
 @Api(tags = "Books")
 @ApiResponses({@ApiResponse(code = 500, message = "There was an internal error", response = Problem.class)})
@@ -46,7 +45,6 @@ public interface BookControllerDocs {
 
     @PutMapping
     ResponseEntity<Void> update(@RequestBody @Valid BookUpdateDTO book);
-
 
     @DeleteMapping("/{id}")
     ResponseEntity<Void> delete(@PathVariable Long id);

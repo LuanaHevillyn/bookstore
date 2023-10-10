@@ -16,12 +16,19 @@ public class Rent {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+<<<<<<< HEAD
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
 
     @ManyToOne
     @JoinColumn(name = "book_id")
+=======
+    @ManyToOne(cascade = {CascadeType.MERGE})
+    private User user;
+
+    @ManyToOne(cascade = {CascadeType.MERGE})
+>>>>>>> ee54ec78baaa1faf65652bfae8fb0938275649e4
     private Book book;
 
     @Column(nullable = false, name = "rent_date")

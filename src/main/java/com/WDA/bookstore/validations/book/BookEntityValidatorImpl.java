@@ -17,6 +17,7 @@ import org.springframework.stereotype.Component;
 import java.time.LocalDate;
 import java.util.Optional;
 
+
 @Component
 public class BookEntityValidatorImpl implements BookEntityValidator {
 
@@ -40,7 +41,6 @@ public class BookEntityValidatorImpl implements BookEntityValidator {
         validateBookId(book);
         validatePublisherAndName(book);
         validateAmount(book);
-        validateLaunchYear(book);
     }
 
     @Override
@@ -83,6 +83,7 @@ public class BookEntityValidatorImpl implements BookEntityValidator {
             }
         }
     }
+
 
     public boolean currentYearIsBiggerThanLaunchYear(Integer launchYear) {
         int currentYear = LocalDate.now().getYear();

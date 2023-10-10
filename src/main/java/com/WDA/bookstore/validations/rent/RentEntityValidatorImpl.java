@@ -2,7 +2,6 @@ package com.WDA.bookstore.validations.rent;
 
 import com.WDA.bookstore.exceptions.book.AmountIsZeroException;
 import com.WDA.bookstore.exceptions.book.BookDoesntExistException;
-import com.WDA.bookstore.exceptions.rent.RentCantBeDeletedException;
 import com.WDA.bookstore.exceptions.rent.RentDoesntExistException;
 import com.WDA.bookstore.exceptions.user.UserDoesntExistException;
 import com.WDA.bookstore.models.Book;
