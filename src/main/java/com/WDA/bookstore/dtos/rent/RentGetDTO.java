@@ -1,17 +1,26 @@
-package com.WDA.bookstore.dtos.publisher;
+package com.WDA.bookstore.dtos.rent;
 
+import com.WDA.bookstore.dtos.book.BookGetDTO;
+import com.WDA.bookstore.dtos.user.UserGetDTO;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalDate;
 @Getter
 @Setter
-public class PublisherGetDTO {
+public class RentGetDTO {
 
     private Long id;
 
-    private String name;
+    private UserGetDTO user;
 
-    private String city;
+    private BookGetDTO book;
 
-    private int relatedBooks;
+    private LocalDate rentDate;
+
+    private LocalDate forecastDate;
+
+    private LocalDate returnDate;
+
+    private String status;
 }

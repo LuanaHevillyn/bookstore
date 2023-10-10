@@ -6,5 +6,7 @@ public interface RentEntityValidator {
 
     void validateForCreate(Rent rent);
 
+    void validateForUpdate(Rent rent);
+
     void validateForDelete(Long id);
 }

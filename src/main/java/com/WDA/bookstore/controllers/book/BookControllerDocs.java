@@ -1,6 +1,8 @@
 package com.WDA.bookstore.controllers.book;
 
-import com.WDA.bookstore.dtos.inputs.BookInput;
+import com.WDA.bookstore.dtos.book.BookCreateDTO;
+import com.WDA.bookstore.dtos.book.BookGetDTO;
+import com.WDA.bookstore.dtos.book.BookUpdateDTO;
 import com.WDA.bookstore.models.Book;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiParam;
@@ -10,6 +12,7 @@ import org.springframework.beans.factory.parsing.Problem;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @Api(tags = "Books")
@@ -23,10 +26,13 @@ public interface BookControllerDocs {
     })
 
     @PostMapping
-    ResponseEntity<Void> create(@ApiParam(name = "body", value = "Representation of a new book", required = true) BookInput request);
+    ResponseEntity<Void> create(@ApiParam(name = "body", value = "Representation of a new book", required = true) BookCreateDTO request);
 
     @GetMapping
     ResponseEntity<?> findAll();
+
+    @GetMapping("/{id}")
+    BookGetDTO findById(Long id);
 
     @GetMapping("most-rented")
     ResponseEntity<List<Book>> mostRented();
@@ -38,8 +44,7 @@ public interface BookControllerDocs {
     ResponseEntity<List<Book>> listOfAvailable();
 
     @PutMapping
-    ResponseEntity<Void> update(@RequestBody BookInput book);
-
+    ResponseEntity<Void> update(@RequestBody @Valid BookUpdateDTO book);
 
     @DeleteMapping("/{id}")
     ResponseEntity<Void> delete(@PathVariable Long id);

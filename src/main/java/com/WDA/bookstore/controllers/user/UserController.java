@@ -1,10 +1,11 @@
 package com.WDA.bookstore.controllers.user;
 
-import com.WDA.bookstore.dtos.inputs.UserInput;
-import com.WDA.bookstore.dtos.outputs.UserOutput;
+import com.WDA.bookstore.dtos.user.UserCreateDTO;
+import com.WDA.bookstore.dtos.user.UserGetDTO;
+import com.WDA.bookstore.dtos.user.UserUpdateDTO;
 import com.WDA.bookstore.mappers.UserMapper;
 import com.WDA.bookstore.models.User;
-import com.WDA.bookstore.services.UserService;
+import com.WDA.bookstore.services.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,7 +26,7 @@ public class UserController implements UserControllerDocs {
 
     @PostMapping
     @Override
-    public ResponseEntity<Void> create(@RequestBody @Valid UserInput user) {
+    public ResponseEntity<Void> create(@RequestBody @Valid UserCreateDTO user) {
         userService.create(userMapper.mapTo(user));
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
@@ -38,13 +39,19 @@ public class UserController implements UserControllerDocs {
 
     @GetMapping
     @Override
-    public ResponseEntity<List<UserOutput>> findAll() {
+    public ResponseEntity<List<User>> findAll() {
         return new ResponseEntity<>(userService.findAll(), HttpStatus.OK);
+    }
+
+    @GetMapping("/{id}")
+    @Override
+    public UserGetDTO findById(Long id) {
+        return userService.findById(id);
     }
 
     @PutMapping
     @Override
-    public ResponseEntity<Void> update(@RequestBody UserInput user) {
+    public ResponseEntity<Void> update(@RequestBody @Valid UserUpdateDTO user) {
         userService.update(userMapper.mapTo(user));
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }

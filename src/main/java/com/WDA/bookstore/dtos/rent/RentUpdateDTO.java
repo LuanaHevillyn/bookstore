@@ -1,20 +1,20 @@
-package com.WDA.bookstore.dtos.publisher;
+package com.WDA.bookstore.dtos.rent;
 
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.validation.constraints.NotEmpty;
-
+import javax.validation.constraints.FutureOrPresent;
+import java.time.LocalDate;
 @Getter
 @Setter
-public class PublisherUpdateDTO {
+public class RentUpdateDTO {
+
     private Long id;
 
-    @NotEmpty(message = "Nome não pode estar vazio!")
-    private String name;
+    private Long userId;
 
-    @NotEmpty(message = "Cidade não pode estar vazia!")
-    private String city;
+    private Long bookId;
 
-    private Integer relatedBooks;
+    @FutureOrPresent
+    private LocalDate returnDate;
 }

@@ -1,11 +1,12 @@
 package com.WDA.bookstore.controllers.book;
 
 
-import com.WDA.bookstore.dtos.inputs.BookInput;
-import com.WDA.bookstore.dtos.outputs.BookOutput;
+import com.WDA.bookstore.dtos.book.BookCreateDTO;
+import com.WDA.bookstore.dtos.book.BookGetDTO;
+import com.WDA.bookstore.dtos.book.BookUpdateDTO;
 import com.WDA.bookstore.mappers.BookMapper;
 import com.WDA.bookstore.models.Book;
-import com.WDA.bookstore.services.BookService;
+import com.WDA.bookstore.services.book.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,15 +27,22 @@ public class BookController implements BookControllerDocs {
 
     @PostMapping
     @Override
-    public ResponseEntity<Void> create(@RequestBody @Valid BookInput book) {
+    public ResponseEntity<Void> create(@RequestBody @Valid BookCreateDTO book) {
         bookService.create(bookMapper.mapTo(book));
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @GetMapping
     @Override
-    public ResponseEntity<List<BookOutput>> findAll() {
+    public ResponseEntity<List<Book>> findAll() {
         return new ResponseEntity<>(bookService.findAll(), HttpStatus.OK);
+    }
+
+
+    @GetMapping("/{id}")
+    @Override
+    public BookGetDTO findById(Long id) {
+        return bookService.findById(id);
     }
 
     @GetMapping("most-rented")
@@ -57,7 +65,7 @@ public class BookController implements BookControllerDocs {
 
     @PutMapping
     @Override
-    public ResponseEntity<Void> update(@RequestBody BookInput book) {
+    public ResponseEntity<Void> update(@RequestBody @Valid BookUpdateDTO book) {
         bookService.update(bookMapper.mapTo(book));
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }

@@ -1,5 +1,16 @@
 package com.WDA.bookstore.exceptions;
 
+<<<<<<< HEAD
+import com.WDA.bookstore.exceptions.book.*;
+import com.WDA.bookstore.exceptions.publisher.PublisherAlreadyRelatedException;
+import com.WDA.bookstore.exceptions.publisher.PublisherCantBeDeletedException;
+import com.WDA.bookstore.exceptions.publisher.PublisherDoesntExistException;
+import com.WDA.bookstore.exceptions.publisher.PublisherNameAlreadyExistsException;
+import com.WDA.bookstore.exceptions.rent.RentCantBeDeletedException;
+import com.WDA.bookstore.exceptions.rent.RentDoesntExistException;
+import com.WDA.bookstore.exceptions.user.UserCantBeDeletedException;
+import com.WDA.bookstore.exceptions.user.UserDoesntExistException;
+=======
 import com.WDA.bookstore.exceptions.book.AmountIsZero;
 import com.WDA.bookstore.exceptions.book.BookCantBeDeletedException;
 import com.WDA.bookstore.exceptions.book.LaunchYearItsNotValidException;
@@ -8,6 +19,7 @@ import com.WDA.bookstore.exceptions.publisher.PublisherCantBeDeletedException;
 import com.WDA.bookstore.exceptions.publisher.PublisherNameAlreadyExistsException;
 import com.WDA.bookstore.exceptions.rent.RentCantBeDeletedException;
 import com.WDA.bookstore.exceptions.user.UserCantBeDeletedException;
+>>>>>>> ee54ec78baaa1faf65652bfae8fb0938275649e4
 import com.WDA.bookstore.exceptions.user.UserEmailAlreadyExistsException;
 import com.WDA.bookstore.exceptions.user.UserNameAlreadyExistsException;
 import org.springframework.http.HttpHeaders;
@@ -26,8 +38,13 @@ import java.util.List;
 @ControllerAdvice
 public class ExceptionHandler extends ResponseEntityExceptionHandler {
 
+<<<<<<< HEAD
+    @org.springframework.web.bind.annotation.ExceptionHandler(AmountIsZeroException.class)
+    public ResponseEntity<Object> handleAmountIsZeroException(AmountIsZeroException exception) {
+=======
     @org.springframework.web.bind.annotation.ExceptionHandler(AmountIsZero.class)
     public ResponseEntity<Object> handleAmountIsZeroException(AmountIsZero exception) {
+>>>>>>> ee54ec78baaa1faf65652bfae8fb0938275649e4
         return buildResponseEntity(
                 HttpStatus.BAD_REQUEST,
                 exception.getMessage(),
@@ -44,6 +61,18 @@ public class ExceptionHandler extends ResponseEntityExceptionHandler {
         );
     }
 
+<<<<<<< HEAD
+    @org.springframework.web.bind.annotation.ExceptionHandler(BookDoesntExistException.class)
+    public ResponseEntity<Object> handleBookDoesntExistException(BookDoesntExistException exception) {
+        return buildResponseEntity(
+                HttpStatus.BAD_REQUEST,
+                exception.getMessage(),
+                Collections.singletonList(exception.getMessage())
+        );
+    }
+
+=======
+>>>>>>> ee54ec78baaa1faf65652bfae8fb0938275649e4
     @org.springframework.web.bind.annotation.ExceptionHandler(LaunchYearItsNotValidException.class)
     public ResponseEntity<Object> handleLaunchYearItsNotValidException(LaunchYearItsNotValidException exception) {
         return buildResponseEntity(
@@ -53,6 +82,18 @@ public class ExceptionHandler extends ResponseEntityExceptionHandler {
         );
     }
 
+<<<<<<< HEAD
+    @org.springframework.web.bind.annotation.ExceptionHandler(AmountCantBeLessThanTheOldValueException.class)
+    public ResponseEntity<Object> handleAmountCantBeLessThanTheOldValueException(AmountCantBeLessThanTheOldValueException exception) {
+        return buildResponseEntity(
+                HttpStatus.BAD_REQUEST,
+                exception.getMessage(),
+                Collections.singletonList(exception.getMessage())
+        );
+    }
+
+=======
+>>>>>>> ee54ec78baaa1faf65652bfae8fb0938275649e4
     @org.springframework.web.bind.annotation.ExceptionHandler(PublisherAlreadyRelatedException.class)
     public ResponseEntity<Object> handlePublisherAlreadyRelatedException(PublisherAlreadyRelatedException exception) {
         return buildResponseEntity(
@@ -80,6 +121,18 @@ public class ExceptionHandler extends ResponseEntityExceptionHandler {
         );
     }
 
+<<<<<<< HEAD
+    @org.springframework.web.bind.annotation.ExceptionHandler(PublisherDoesntExistException.class)
+    public ResponseEntity<Object> handlePublisherDoesntExistException(PublisherDoesntExistException exception) {
+        return buildResponseEntity(
+                HttpStatus.BAD_REQUEST,
+                exception.getMessage(),
+                Collections.singletonList(exception.getMessage())
+        );
+    }
+
+=======
+>>>>>>> ee54ec78baaa1faf65652bfae8fb0938275649e4
     @org.springframework.web.bind.annotation.ExceptionHandler(RentCantBeDeletedException.class)
     public ResponseEntity<Object> handleRentCantBeDeletedException(RentCantBeDeletedException exception) {
         return buildResponseEntity(
@@ -89,6 +142,18 @@ public class ExceptionHandler extends ResponseEntityExceptionHandler {
         );
     }
 
+<<<<<<< HEAD
+    @org.springframework.web.bind.annotation.ExceptionHandler(RentDoesntExistException.class)
+    public ResponseEntity<Object> handleRentDoesntExistException(RentDoesntExistException exception) {
+        return buildResponseEntity(
+                HttpStatus.BAD_REQUEST,
+                exception.getMessage(),
+                Collections.singletonList(exception.getMessage())
+        );
+    }
+
+=======
+>>>>>>> ee54ec78baaa1faf65652bfae8fb0938275649e4
     @org.springframework.web.bind.annotation.ExceptionHandler(UserCantBeDeletedException.class)
     public ResponseEntity<Object> handleUserCantBeDeletedException(UserCantBeDeletedException exception) {
         return buildResponseEntity(
@@ -116,6 +181,18 @@ public class ExceptionHandler extends ResponseEntityExceptionHandler {
         );
     }
 
+<<<<<<< HEAD
+    @org.springframework.web.bind.annotation.ExceptionHandler(UserDoesntExistException.class)
+    public ResponseEntity<Object> handleUserDoesntExistException(UserDoesntExistException exception) {
+        return buildResponseEntity(
+                HttpStatus.BAD_REQUEST,
+                exception.getMessage(),
+                Collections.singletonList(exception.getMessage())
+        );
+    }
+
+=======
+>>>>>>> ee54ec78baaa1faf65652bfae8fb0938275649e4
     @Override
     protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException exception, HttpHeaders headers, HttpStatus status, WebRequest request) {
         List<String> errors = new ArrayList<>();

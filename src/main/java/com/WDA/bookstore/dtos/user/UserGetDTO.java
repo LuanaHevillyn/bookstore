@@ -1,11 +1,10 @@
-package com.WDA.bookstore.dtos.publisher;
+package com.WDA.bookstore.dtos.user;
 
 import lombok.Getter;
 import lombok.Setter;
-
 @Getter
 @Setter
-public class PublisherGetDTO {
+public class UserGetDTO {
 
     private Long id;
 
@@ -13,5 +12,9 @@ public class PublisherGetDTO {
 
     private String city;
 
-    private int relatedBooks;
+    private String email;
+
+    private String address;
+
+    private int totalRents;
 }

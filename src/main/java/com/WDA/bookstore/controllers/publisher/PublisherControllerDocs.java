@@ -1,7 +1,8 @@
 package com.WDA.bookstore.controllers.publisher;
 
-
-import com.WDA.bookstore.dtos.inputs.PublisherInput;
+import com.WDA.bookstore.dtos.publisher.PublisherCreateDTO;
+import com.WDA.bookstore.dtos.publisher.PublisherGetDTO;
+import com.WDA.bookstore.dtos.publisher.PublisherUpdateDTO;
 import com.WDA.bookstore.models.Publisher;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiParam;
@@ -11,6 +12,7 @@ import org.springframework.beans.factory.parsing.Problem;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @Api(tags = "Publishers")
@@ -24,17 +26,19 @@ public interface PublisherControllerDocs {
     })
 
     @PostMapping
-    ResponseEntity<Void> create(@ApiParam(name = "body", value = "Representation of a new publisher", required = true) PublisherInput request);
+    ResponseEntity<Void> create(@ApiParam(name = "body", value = "Representation of a new publisher", required = true) PublisherCreateDTO request);
 
     @GetMapping
     ResponseEntity<?> findAll();
 
-
     @GetMapping("findMostUsed")
     ResponseEntity<List<Publisher>> findMostUsed();
 
+    PublisherGetDTO findById(Long id);
+
     @PutMapping
-    ResponseEntity<Void> update(@RequestBody PublisherInput publisher);
+    ResponseEntity<Void> update(@RequestBody @Valid PublisherUpdateDTO publisher);
+
 
     @DeleteMapping("/{id}")
     ResponseEntity<Void> delete(@PathVariable Long id);

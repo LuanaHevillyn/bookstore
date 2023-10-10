@@ -14,6 +14,10 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     boolean existsByEmail(String email);
 
+    boolean existsByNameAndIdNot(String name, Long id);
+
+    boolean existsByEmailAndIdNot(String email, Long id);
+
     @Query("SELECT user FROM User user WHERE user.totalRents = (SELECT MAX(user.totalRents) FROM user)")
     List<User> findWhoRentsMore();
 }

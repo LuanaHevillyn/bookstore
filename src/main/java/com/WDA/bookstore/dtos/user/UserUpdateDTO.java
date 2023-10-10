@@ -1,13 +1,14 @@
-package com.WDA.bookstore.dtos.publisher;
+package com.WDA.bookstore.dtos.user;
 
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 
 @Getter
 @Setter
-public class PublisherUpdateDTO {
+public class UserUpdateDTO {
     private Long id;
 
     @NotEmpty(message = "Nome não pode estar vazio!")
@@ -16,5 +17,9 @@ public class PublisherUpdateDTO {
     @NotEmpty(message = "Cidade não pode estar vazia!")
     private String city;
 
-    private Integer relatedBooks;
+    @Email
+    private String email;
+
+    @NotEmpty(message = "Endereço não pode estar vazio!")
+    private String address;
 }

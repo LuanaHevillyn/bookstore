@@ -1,7 +1,9 @@
 package com.WDA.bookstore.controllers.rent;
 
-import com.WDA.bookstore.dtos.inputs.RentInput;
-import com.WDA.bookstore.dtos.outputs.RentOutput;
+import com.WDA.bookstore.dtos.rent.RentCreateDTO;
+import com.WDA.bookstore.dtos.rent.RentGetDTO;
+import com.WDA.bookstore.dtos.rent.RentUpdateDTO;
+import com.WDA.bookstore.models.Rent;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.ApiResponse;
@@ -10,7 +12,9 @@ import org.springframework.beans.factory.parsing.Problem;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
+
 
 @Api(tags = "Rents")
 @ApiResponses({@ApiResponse(code = 500, message = "There was an internal error", response = Problem.class)})
@@ -23,13 +27,16 @@ public interface RentControllerDocs {
     })
 
     @PostMapping
-    ResponseEntity<Void> create(@ApiParam(name = "body", value = "Representation of a new rent", required = true) RentInput request);
+    ResponseEntity<Void> create(@ApiParam(name = "body", value = "Representation of a new rent", required = true) RentCreateDTO request);
 
     @GetMapping
-    public ResponseEntity<List<RentOutput>> findAll();
+    ResponseEntity<List<Rent>> findAll();
+
+    @GetMapping("/{id}")
+    RentGetDTO findById(Long id);
 
     @PutMapping
-    ResponseEntity<Void> update(@RequestBody RentInput rent);
+    ResponseEntity<Void> update(@RequestBody @Valid RentUpdateDTO rent);
 
     @DeleteMapping("/{id}")
     ResponseEntity<Void> delete(@PathVariable Long id);

@@ -33,7 +33,6 @@ public class SwaggerConfig {
                 .apiInfo(buildApiInfo());
     }
 
-
     private ApiInfo buildApiInfo() {
         return new ApiInfoBuilder()
                 .title("Bookstore WDA")

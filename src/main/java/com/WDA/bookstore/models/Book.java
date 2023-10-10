@@ -19,7 +19,12 @@ public class Book {
     @Column(nullable = false)
     private String name;
 
+<<<<<<< HEAD
+    @ManyToOne
+    @JoinColumn(name = "publisher_id")
+=======
     @ManyToOne(cascade = {CascadeType.MERGE})
+>>>>>>> ee54ec78baaa1faf65652bfae8fb0938275649e4
     private Publisher publisher;
 
     @Column(nullable = false)

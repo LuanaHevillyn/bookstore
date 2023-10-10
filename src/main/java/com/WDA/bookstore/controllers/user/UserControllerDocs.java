@@ -1,6 +1,8 @@
 package com.WDA.bookstore.controllers.user;
 
-import com.WDA.bookstore.dtos.inputs.UserInput;
+import com.WDA.bookstore.dtos.user.UserCreateDTO;
+import com.WDA.bookstore.dtos.user.UserGetDTO;
+import com.WDA.bookstore.dtos.user.UserUpdateDTO;
 import com.WDA.bookstore.models.User;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiParam;
@@ -10,6 +12,7 @@ import org.springframework.beans.factory.parsing.Problem;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @Api(tags = "Users")
@@ -23,7 +26,7 @@ public interface UserControllerDocs {
     })
 
     @PostMapping
-    ResponseEntity<Void> create(@ApiParam(name = "body", value = "Representation of a new user", required = true) UserInput request);
+    ResponseEntity<Void> create(@ApiParam(name = "body", value = "Representation of a new user", required = true) UserCreateDTO request);
 
 
     @GetMapping("who-rents-more")
@@ -32,8 +35,11 @@ public interface UserControllerDocs {
     @GetMapping
     ResponseEntity<?> findAll();
 
+    @GetMapping("/{id}")
+    UserGetDTO findById(Long id);
+
     @PutMapping
-    ResponseEntity<Void> update(@RequestBody UserInput user);
+    ResponseEntity<Void> update(@RequestBody @Valid UserUpdateDTO user);
 
     @DeleteMapping("/{id}")
     ResponseEntity<Void> delete(@PathVariable Long id);

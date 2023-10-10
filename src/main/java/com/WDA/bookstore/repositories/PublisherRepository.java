@@ -9,8 +9,12 @@ import java.util.List;
 
 @Repository
 public interface PublisherRepository extends JpaRepository<Publisher, Long> {
-    boolean existsByName(String name);
+    boolean existsByNameAndIdNot(String name, Long id);
 
     @Query("SELECT publisher FROM Publisher publisher WHERE publisher.relatedBooks = (SELECT MAX(publisher.relatedBooks) FROM publisher)")
     List<Publisher> findMostUsed();
+
+    boolean existsById(Long id);
+
+    boolean existsByName(String name);
 }
