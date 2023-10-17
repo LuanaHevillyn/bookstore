@@ -15,7 +15,7 @@ public interface BookRepository extends JpaRepository<Book, Long> {
     @Query("SELECT book FROM Book book WHERE book.totalLeased = (SELECT MAX(book.totalLeased) FROM book)")
     List<Book> findMostRented();
 
-    @Query("SELECT book FROM Book book WHERE book.totalLeased > 5")
+    @Query("SELECT book FROM Book book WHERE book.totalLeased > 3")
     List<Book> findListOfMostRented();
 
     @Query("SELECT book FROM Book book WHERE book.amount > 0")

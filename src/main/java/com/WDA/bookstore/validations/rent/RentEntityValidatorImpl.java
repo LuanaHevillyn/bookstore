@@ -3,6 +3,7 @@ package com.WDA.bookstore.validations.rent;
 import com.WDA.bookstore.exceptions.book.AmountIsZeroException;
 import com.WDA.bookstore.exceptions.book.BookDoesntExistException;
 import com.WDA.bookstore.exceptions.rent.RentDoesntExistException;
+import com.WDA.bookstore.exceptions.rent.RentIsAlreadyRegisteredException;
 import com.WDA.bookstore.exceptions.user.UserDoesntExistException;
 import com.WDA.bookstore.models.Book;
 import com.WDA.bookstore.models.Rent;
@@ -29,14 +30,14 @@ public class RentEntityValidatorImpl implements RentEntityValidator {
 
     @Override
     public void validateForCreate(Rent rent) {
-        validateUserAndBook(rent);
+        validateUserAndBookForCreate(rent);
         validateBookAmount(rent);
     }
 
     @Override
     public void validateForUpdate(Rent rent) {
+        validateUserAndBookForUpdate(rent);
         validateRentId(rent);
-        validateUserAndBook(rent);
     }
 
     @Override
@@ -44,13 +45,25 @@ public class RentEntityValidatorImpl implements RentEntityValidator {
         validateDelete(id);
     }
 
-    private void validateUserAndBook(Rent rent) {
+    private void validateUserAndBookForCreate(Rent rent) {
         Optional<User> userOptional = userRepository.findById(rent.getUser().getId());
         Optional<Book> bookOptional = bookRepository.findById(rent.getBook().getId());
-            if (bookOptional.isEmpty()) {
-                throw new BookDoesntExistException();
-            } else if (userOptional.isEmpty()) {
-                throw new UserDoesntExistException();
+        if (bookOptional.isEmpty()) {
+            throw new BookDoesntExistException();
+        } else if (userOptional.isEmpty()) {
+            throw new UserDoesntExistException();
+        }else if (rentRepository.existsByBookAndUserAndStatus(bookOptional, userOptional, "Pendente")){
+            throw new RentIsAlreadyRegisteredException();
+        }
+    }
+
+    private void validateUserAndBookForUpdate(Rent rent) {
+        Optional<User> userOptional = userRepository.findById(rent.getUser().getId());
+        Optional<Book> bookOptional = bookRepository.findById(rent.getBook().getId());
+        if (bookOptional.isEmpty()) {
+            throw new BookDoesntExistException();
+        } else if (userOptional.isEmpty()) {
+            throw new UserDoesntExistException();
         }
     }
 
