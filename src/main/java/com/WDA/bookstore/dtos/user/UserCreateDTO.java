@@ -22,4 +22,5 @@ public class UserCreateDTO {
 
     @NotEmpty(message = "Endereço não pode estar vazio!")
     private String address;
+
 }

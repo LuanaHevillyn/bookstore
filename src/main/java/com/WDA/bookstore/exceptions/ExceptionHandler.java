@@ -7,6 +7,7 @@ import com.WDA.bookstore.exceptions.publisher.PublisherDoesntExistException;
 import com.WDA.bookstore.exceptions.publisher.PublisherNameAlreadyExistsException;
 import com.WDA.bookstore.exceptions.rent.RentCantBeDeletedException;
 import com.WDA.bookstore.exceptions.rent.RentDoesntExistException;
+import com.WDA.bookstore.exceptions.rent.RentIsAlreadyRegisteredException;
 import com.WDA.bookstore.exceptions.user.UserCantBeDeletedException;
 import com.WDA.bookstore.exceptions.user.UserDoesntExistException;
 import com.WDA.bookstore.exceptions.user.UserEmailAlreadyExistsException;
@@ -48,7 +49,7 @@ public class ExceptionHandler extends ResponseEntityExceptionHandler {
     @org.springframework.web.bind.annotation.ExceptionHandler(BookDoesntExistException.class)
     public ResponseEntity<Object> handleBookDoesntExistException(BookDoesntExistException exception) {
         return buildResponseEntity(
-                HttpStatus.BAD_REQUEST,
+                HttpStatus.NOT_FOUND,
                 exception.getMessage(),
                 Collections.singletonList(exception.getMessage())
         );
@@ -102,7 +103,7 @@ public class ExceptionHandler extends ResponseEntityExceptionHandler {
     @org.springframework.web.bind.annotation.ExceptionHandler(PublisherDoesntExistException.class)
     public ResponseEntity<Object> handlePublisherDoesntExistException(PublisherDoesntExistException exception) {
         return buildResponseEntity(
-                HttpStatus.BAD_REQUEST,
+                HttpStatus.NOT_FOUND,
                 exception.getMessage(),
                 Collections.singletonList(exception.getMessage())
         );
@@ -125,6 +126,16 @@ public class ExceptionHandler extends ResponseEntityExceptionHandler {
                 Collections.singletonList(exception.getMessage())
         );
     }
+
+    @org.springframework.web.bind.annotation.ExceptionHandler(RentIsAlreadyRegisteredException.class)
+    public ResponseEntity<Object> handleRentIsAlreadyRegisteredException(RentIsAlreadyRegisteredException exception) {
+        return buildResponseEntity(
+                HttpStatus.BAD_REQUEST,
+                exception.getMessage(),
+                Collections.singletonList(exception.getMessage())
+        );
+    }
+
 
     @org.springframework.web.bind.annotation.ExceptionHandler(UserCantBeDeletedException.class)
     public ResponseEntity<Object> handleUserCantBeDeletedException(UserCantBeDeletedException exception) {
@@ -156,7 +167,7 @@ public class ExceptionHandler extends ResponseEntityExceptionHandler {
     @org.springframework.web.bind.annotation.ExceptionHandler(UserDoesntExistException.class)
     public ResponseEntity<Object> handleUserDoesntExistException(UserDoesntExistException exception) {
         return buildResponseEntity(
-                HttpStatus.BAD_REQUEST,
+                HttpStatus.NOT_FOUND,
                 exception.getMessage(),
                 Collections.singletonList(exception.getMessage())
         );

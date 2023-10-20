@@ -10,6 +10,10 @@ import java.util.List;
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
 
+    boolean existsByName(String name);
+
+    boolean existsByEmail(String email);
+
     boolean existsByNameAndIdNot(String name, Long id);
 
     boolean existsByEmailAndIdNot(String email, Long id);

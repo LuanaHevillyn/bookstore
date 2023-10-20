@@ -1,14 +1,13 @@
 package com.WDA.bookstore.mappers;
 
 import com.WDA.bookstore.dtos.book.BookCreateDTO;
-import com.WDA.bookstore.dtos.book.BookGetDTO;
 import com.WDA.bookstore.dtos.book.BookUpdateDTO;
 import com.WDA.bookstore.models.Book;
 import com.WDA.bookstore.models.Publisher;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 
-@Component("bookDocs")
+@Component
 public class BookMapper {
 
     public Book mapTo(BookCreateDTO bookCreateDTO) {

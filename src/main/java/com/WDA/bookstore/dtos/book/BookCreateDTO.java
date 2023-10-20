@@ -16,6 +16,7 @@ public class BookCreateDTO {
     @NotEmpty(message = "Autor não pode estar vazio!")
     private String author;
 
+    @Min(value = 1, message = "Coloque um id EXISTENTE e que não seja 0.")
     private Long publisherId;
 
     @ApiModelProperty(example = "2020", required = true)
